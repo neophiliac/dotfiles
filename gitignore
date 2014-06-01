@@ -1,0 +1,16 @@
+.#*
+*~
+*#
+.bundle
+.DS_Store
+.idea/*
+log/*.log
+**.orig
+*.rbc
+rerun.txt
+*.sassc
+.sass-cache
+*.swp
+*.swo
+tmp/**/*
+tags

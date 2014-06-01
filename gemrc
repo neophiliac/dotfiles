@@ -1,0 +1,11 @@
+---
+:verbose: true
+:bulk_threshold: 1000
+:sources:
+- http://gems.rubyforge.org/
+- http://gems.github.com
+- https://railskits.com/gems/015ddac4-2729-a01e-b198-8ae56e820bdd/
+gem: --no-ri --no-rdoc
+:benchmark: false
+:update_sources: true
+:backtrace: false

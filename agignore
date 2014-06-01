@@ -1,0 +1,7 @@
+log
+tags
+tmp
+coverage
+perf
+spec/vcr
+vendor/

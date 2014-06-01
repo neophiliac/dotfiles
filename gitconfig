@@ -1,0 +1,52 @@
+[color]
+ui             = true
+[format]
+pretty         = %C(yellow)%h%Creset %s %C(red)(%cr)%Creset
+[user]
+name           = Kurt Sussman
+email          = kls@merlot.com
+[alias]
+st             = status
+sb             = status -sb
+ci             = commit
+br             = branch
+co             = checkout
+cp             = cherry-pick
+ld             = log -p
+lg             = log --graph --abbrev-commit --decorate --date                                              = relative --format                                                           = format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+ls             = log --pretty                                                                               = format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
+ll             = log --pretty                                                                               = format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+lnc            = log --pretty                                                                               = format:"%h\\ %s\\ [%cn]"
+df             = diff --word-diff
+last           = diff HEAD^ # show last committed change
+uncommit       = reset --soft HEAD^   # go back before last commit, with files in uncommitted state
+hist           = log --pretty                                                                               = format:\"%h %ad | %s%d [%an]\" --graph --date                               = short
+aa             = !git add -u && git add . && git status
+cob            = checkout -b
+up             = !git fetch origin && git rebase -p origin/master
+ir             = !git rebase -i origin/master
+done           = !git fetch && git rebase origin/master && git checkout master && git merge @{-1} && rake &
+who            = shortlog -n -s --no-merges
+sub            = submodule update --init
+unstage        = reset HEAD
+uncommit       = reset --soft HEAD^
+fl             = log -u
+ctags          = !.git/hooks/ctags
+[branch]
+autosetupmerge = true
+[merge]
+summary        = true
+[gc]
+auto           = 1
+[core]
+editor         = "vim --nofork"
+autocrlf       = input
+excludesfile   = /home/kls/.gitignore
+[push]
+default        = tracking
+[help]
+autocorrect    = 1
+[diff]
+algorithm      = patience
+[init]
+templatedir = ~/.git_template
