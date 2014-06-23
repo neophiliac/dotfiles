@@ -136,7 +136,7 @@ autocmd BufReadPost *
   \ endif
 
 " spell check stuff
-autocmd BufRead,BufNewFile *.md setlocal spell
+autocmd BufRead,BufNewFile *.md,*.markdown setlocal spell
 "autocmd FileType text setlocal spell
 set complete+=kspell
 map <F5> :setlocal spell! spelllang=en_us<CR>
