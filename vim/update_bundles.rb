@@ -90,7 +90,7 @@ def update_git_bundles
   $git_bundles.each do |url|
     dir = url.split('/').last.sub(/\.git$/, '')
     puts "Unpacking #{url} into #{dir}"
-    `git clone #{url} #{dir}`
+    `git clone --depth 1 #{url} #{dir}`
     FileUtils.rm_rf(File.join(dir, ".git"))
   end
 end
