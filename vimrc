@@ -2,6 +2,37 @@
 "This must be first, because it changes other options as a side effect.
 set nocompatible
 filetype off
+set runtimepath+=~/.vim/bundle/vundle
+call vundle#rc()
+
+Bundle 'gmarik/vundle'
+
+
+Bundle  "bling/vim-airline"
+Bundle  "christoomey/vim-tmux-navigator"
+Bundle  "fatih/vim-go"
+Bundle  "rking/ag.vim"
+Bundle  "pangloss/vim-javascript"
+Bundle  "kien/ctrlp.vim"
+Bundle  "scrooloose/nerdtree"
+Bundle  "airblade/vim-gitgutter"
+Bundle  "tpope/vim-surround"
+Bundle  "tomtom/tlib_vim"
+Bundle  "MarcWeber/vim-addon-mw-utils"
+Bundle  "garbas/vim-snipmate"
+Bundle  "honza/vim-snippets"
+Bundle  "tpope/vim-cucumber"
+Bundle  "tpope/vim-haml"
+Bundle  "slim-template/vim-slim"
+Bundle  "mutewinter/nginx.vim"
+Bundle  "tpope/vim-markdown"
+Bundle  "tpope/vim-rails"
+Bundle  "vim-ruby/vim-ruby"
+Bundle  "tpope/vim-vividchalk"
+Bundle  "tsaleh/vim-align"
+Bundle  "tpope/vim-commentary"
+Bundle  "Raimondi/delimitMate"
+
 set showtabline=2
 
 "if $COLORTERM == 'gnome-terminal'
@@ -10,9 +41,6 @@ set showtabline=2
 :colorscheme desert
 
 let g:snippets_dir="~/.vim/bundle/snipmate-snippets/"
-
-call pathogen#infect('bundle/{}')
-call pathogen#helptags()
 
 filetype plugin indent on
 syntax on
@@ -74,6 +102,9 @@ let g:airline_symbols.space = "\ua0"
 " highlight just the 81st column of wide lines, for example, right here........> <
 highlight ColorColumn ctermbg=235
 call matchadd('ColorColumn', '\%81v', 100)
+
+" gitgutter bg color matches line numbers
+highlight clear SignColumn
 
 " Leader commands
 map <Leader>ac :sp app/controllers/application_controller.rb<cr>
