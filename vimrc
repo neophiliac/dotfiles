@@ -3,35 +3,35 @@
 set nocompatible
 filetype off
 set runtimepath+=~/.vim/bundle/vundle
-call vundle#rc()
+call vundle#begin()
 
-Bundle 'gmarik/vundle'
+Plugin 'gmarik/vundle'
 
-
-Bundle  "bling/vim-airline"
-Bundle  "christoomey/vim-tmux-navigator"
-Bundle  "fatih/vim-go"
-Bundle  "rking/ag.vim"
-Bundle  "pangloss/vim-javascript"
-Bundle  "kien/ctrlp.vim"
-Bundle  "scrooloose/nerdtree"
-Bundle  "airblade/vim-gitgutter"
-Bundle  "tpope/vim-surround"
-Bundle  "tomtom/tlib_vim"
-Bundle  "MarcWeber/vim-addon-mw-utils"
-Bundle  "garbas/vim-snipmate"
-Bundle  "honza/vim-snippets"
-Bundle  "tpope/vim-cucumber"
-Bundle  "tpope/vim-haml"
-Bundle  "slim-template/vim-slim"
-Bundle  "mutewinter/nginx.vim"
-Bundle  "tpope/vim-markdown"
-Bundle  "tpope/vim-rails"
-Bundle  "vim-ruby/vim-ruby"
-Bundle  "tpope/vim-vividchalk"
-Bundle  "tsaleh/vim-align"
-Bundle  "tpope/vim-commentary"
-Bundle  "Raimondi/delimitMate"
+Plugin  'bling/vim-airline'
+Plugin  'christoomey/vim-tmux-navigator'
+Plugin  'fatih/vim-go'
+Plugin  'rking/ag.vim'
+Plugin  'pangloss/vim-javascript'
+Plugin  'kien/ctrlp.vim'
+Plugin  'scrooloose/nerdtree'
+Plugin  'airblade/vim-gitgutter'
+Plugin  'tpope/vim-surround'
+Plugin  'tomtom/tlib_vim'
+Plugin  'MarcWeber/vim-addon-mw-utils'
+Plugin  'garbas/vim-snipmate'
+Plugin  'honza/vim-snippets'
+Plugin  'tpope/vim-cucumber'
+Plugin  'tpope/vim-haml'
+Plugin  'slim-template/vim-slim'
+Plugin  'mutewinter/nginx.vim'
+Plugin  'tpope/vim-markdown'
+"Plugin  'ngmy/vim-rubocop'
+Plugin  'tpope/vim-rails'
+Plugin  'vim-ruby/vim-ruby'
+Plugin  'tpope/vim-vividchalk'
+Plugin  'tsaleh/vim-align'
+Plugin  'tpope/vim-commentary'
+Plugin  'Raimondi/delimitMate'
 
 set showtabline=2
 
