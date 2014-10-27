@@ -7,14 +7,25 @@ call vundle#begin()
 
 Plugin 'gmarik/Vundle.vim'
 
+" display stuff
 Plugin  'bling/vim-airline'
+Plugin  'airblade/vim-gitgutter'
+Plugin  'tsaleh/vim-align'
+Plugin  'tpope/vim-commentary'
+Plugin  'Raimondi/delimitMate'
+
+" navigation and searching
+Plugin  'scrooloose/nerdtree'
 Plugin  'christoomey/vim-tmux-navigator'
+Plugin  'kien/ctrlp.vim'
+Plugin  'tpope/vim-vividchalk'
+
+" language and framework
 Plugin  'fatih/vim-go'
 Plugin  'rking/ag.vim'
+"Plugin  'vim-scripts/bash-support.vim'
 Plugin  'pangloss/vim-javascript'
-Plugin  'kien/ctrlp.vim'
-Plugin  'scrooloose/nerdtree'
-Plugin  'airblade/vim-gitgutter'
+Plugin  'mxw/vim-jsx'
 Plugin  'tpope/vim-surround'
 Plugin  'tomtom/tlib_vim'
 Plugin  'MarcWeber/vim-addon-mw-utils'
@@ -28,10 +39,6 @@ Plugin  'tpope/vim-markdown'
 "Plugin  'ngmy/vim-rubocop'
 Plugin  'tpope/vim-rails'
 Plugin  'vim-ruby/vim-ruby'
-Plugin  'tpope/vim-vividchalk'
-Plugin  'tsaleh/vim-align'
-Plugin  'tpope/vim-commentary'
-Plugin  'Raimondi/delimitMate'
 call vundle#end()
 
 set showtabline=2
