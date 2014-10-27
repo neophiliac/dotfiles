@@ -2,10 +2,10 @@
 "This must be first, because it changes other options as a side effect.
 set nocompatible
 filetype off
-set runtimepath+=~/.vim/bundle/vundle
+set runtimepath+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-Plugin 'gmarik/vundle'
+Plugin 'gmarik/Vundle.vim'
 
 Plugin  'bling/vim-airline'
 Plugin  'christoomey/vim-tmux-navigator'
@@ -32,6 +32,7 @@ Plugin  'tpope/vim-vividchalk'
 Plugin  'tsaleh/vim-align'
 Plugin  'tpope/vim-commentary'
 Plugin  'Raimondi/delimitMate'
+call vundle#end()
 
 set showtabline=2
 
