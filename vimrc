@@ -23,10 +23,13 @@ Plugin  'tpope/vim-vividchalk'
 " language and framework
 Plugin  'fatih/vim-go'
 Plugin  'rking/ag.vim'
+Plugin  'moll/vim-node'
 "Plugin  'vim-scripts/bash-support.vim'
-Plugin  'pangloss/vim-javascript'
+Plugin 'jelera/vim-javascript-syntax'
 Plugin  'mxw/vim-jsx'
 Plugin  'tpope/vim-surround'
+Plugin  'vim-scripts/paredit.vim'
+Plugin  'guns/vim-clojure-static'
 Plugin  'tomtom/tlib_vim'
 Plugin  'MarcWeber/vim-addon-mw-utils'
 Plugin  'garbas/vim-snipmate'
@@ -139,6 +142,7 @@ nmap <ESC>t :OpenNERDTree<CR>
 
 " use ctrl-p fuzzy finder (plugin)
 let g:ctrlp_map = '<c-p>'
+let g:ctrlp_custom_ignore = '\v\~$|\.(o|swp|pyc|wav|mp3|ogg|blend)$|(^|[/\\])\.(hg|git|bzr)($|[/\\])|__init__\.py'
 
 autocmd User Rails let  g:fuzzy_roots = [RailsRoot()]
 
