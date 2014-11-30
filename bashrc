@@ -160,5 +160,9 @@ eval "$(rbenv init - --no-rehash)"
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 
+# Android tools (for Ruboto)
+export PATH="$HOME/android-sdk-linux/tools:$PATH"
+export ANDROID_HOME="$HOME/android-sdk-linux"
+
 ##*- MUST BE LAST LINE!!
 eval "$(direnv hook bash)"
