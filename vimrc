@@ -2,7 +2,7 @@
 "This must be first, because it changes other options as a side effect.
 set nocompatible
 filetype off
-set runtimepath+=~/.vim/bundle/Vundle.vim
+set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 Plugin 'gmarik/Vundle.vim'
@@ -19,13 +19,18 @@ Plugin  'scrooloose/nerdtree'
 Plugin  'christoomey/vim-tmux-navigator'
 Plugin  'kien/ctrlp.vim'
 Plugin  'tpope/vim-vividchalk'
+Plugin  'rking/ag.vim'
+Plugin  'ludovicchabant/vim-gutentags'
+Plugin  'henrik/vim-indexed-search'
 
 " language and framework
 Plugin  'fatih/vim-go'
-Plugin  'rking/ag.vim'
 Plugin  'moll/vim-node'
+Plugin  'elixir-lang/vim-elixir'
+Plugin  'avakhov/vim-yaml'
+Plugin  'chase/vim-ansible-yaml'
 "Plugin  'vim-scripts/bash-support.vim'
-Plugin 'jelera/vim-javascript-syntax'
+Plugin  'jelera/vim-javascript-syntax'
 Plugin  'mxw/vim-jsx'
 Plugin  'tpope/vim-surround'
 Plugin  'vim-scripts/paredit.vim'
@@ -42,6 +47,7 @@ Plugin  'tpope/vim-markdown'
 "Plugin  'ngmy/vim-rubocop'
 Plugin  'tpope/vim-rails'
 Plugin  'vim-ruby/vim-ruby'
+"Plugin  'jpalardy/vim-slime'
 call vundle#end()
 
 set showtabline=2
@@ -56,6 +62,11 @@ let g:snippets_dir="~/.vim/bundle/snipmate-snippets/"
 filetype plugin indent on
 syntax on
 filetype plugin on
+
+" Improve vim's scrolling speed
+set ttyfast
+set ttyscroll=3
+set lazyredraw
 
 set tabstop=2
 set smarttab
@@ -78,7 +89,8 @@ set complete=.,t
 set autoread
 
 set list   " show trailing whitespace
-set listchars=tab:▸\ ,trail:▫
+"set listchars=tab:▸\ ,trail:▫
+set listchars=tab:▸\ ,trail:▫,eol:¬,nbsp:_,extends:❯,precedes:❮
 
 " swapfiles are lame. we have git
 set noswapfile
@@ -133,6 +145,13 @@ map <Leader>vf :RVfunctional<cr>
 map <Leader>vm :RVmodel<cr>
 map <Leader>vv :RVview<cr>
 
+" reselect visual block after indent/outdent
+noremap < <gv
+noremap > >gv
+
+" two leaders to previous buffer
+nnoremap <leader><leader> :b#<cr>
+
 function OpenNERDTree()
   execute ":NERDTree"
 endfunction
@@ -147,6 +166,8 @@ let g:ctrlp_custom_ignore = '\v\~$|\.(o|swp|pyc|wav|mp3|ogg|blend)$|(^|[/\\])\.(
 autocmd User Rails let  g:fuzzy_roots = [RailsRoot()]
 
 au BufRead,BufNewFile *.bldr set filetype=ruby
+au BufWritePost .vimrc so $MYVIMRC
+au BufNewFile,BufRead *.json setf javascript
 
 function! OpenFactoryFile()
   if filereadable("test/factories.rb")
@@ -183,6 +204,9 @@ autocmd BufRead,BufNewFile *.md,*.markdown setlocal spell
 "autocmd FileType text setlocal spell
 set complete+=kspell
 map <F5> :setlocal spell! spelllang=en_us<CR>
+
+" zeal doc tool
+:nnoremap gz :!zeal --query "<cword>"&<CR><CR>
 
 " Quick cycling between windows
 map <C-h> <C-w>h
