@@ -164,5 +164,10 @@ export PATH="/usr/local/heroku/bin:$PATH"
 export PATH="$HOME/android-sdk-linux/tools:$PATH"
 export ANDROID_HOME="$HOME/android-sdk-linux"
 
+# golang env
+export GOROOT=$HOME/go
+export PATH=$PATH:$GOROOT/bin
+export GOPATH=$HOME/go-programs
+
 ##*- MUST BE LAST LINE!!
 eval "$(direnv hook bash)"
