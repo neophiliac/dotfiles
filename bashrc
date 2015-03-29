@@ -120,8 +120,6 @@ fi;
 
 export JDK_HOME="/usr/lib/jvm/java-7-openjdk-amd64/"
 
-export GOPATH="/home/kls/Projects/gocode/"
-
 export CDPATH=~/Projects:"${CDPATH}"
 
 export CHOST="x86_64-pc-linux-gnu"
@@ -152,7 +150,8 @@ export RUBY_HEAP_SLOTS_GROWTH_FACTOR=1.25
 export RUBY_GC_HEAP_INIT_SLOTS=800000 # Like RUBY_HEAP_MIN_SLOTS for Ruby 2.1+
 #export RUBY_FREE_MIN=600000
 export RUBY_GC_HEAP_FREE_SLOTS=600000 # Like RUBY_FREE_MIN for Ruby 2.1+
-export LD_PRELOAD=/usr/lib/libtcmalloc_minimal.so.4
+#export LD_PRELOAD=/usr/lib/libtcmalloc_minimal.so.4
+export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so.1
 
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init - --no-rehash)"
@@ -165,9 +164,9 @@ export PATH="$HOME/android-sdk-linux/tools:$PATH"
 export ANDROID_HOME="$HOME/android-sdk-linux"
 
 # golang env
-export GOROOT=$HOME/go
+export GOROOT=$HOME/tools/go/go-lang
 export PATH=$PATH:$GOROOT/bin
-export GOPATH=$HOME/go-programs
+export GOPATH="/home/kls/Projects/gocode/"
 
 ##*- MUST BE LAST LINE!!
 eval "$(direnv hook bash)"
