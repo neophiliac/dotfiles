@@ -159,9 +159,12 @@ eval "$(rbenv init - --no-rehash)"
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 
+# AWS env
+export AWS_CONFIG_FILE=$HOME/.aws/config
+
 # Android tools (for Ruboto)
-export PATH="$HOME/android-sdk-linux/tools:$PATH"
-export ANDROID_HOME="$HOME/android-sdk-linux"
+export PATH="$HOME/tools/android/android-studio/bin:$PATH"
+export ANDROID_HOME="$HOME/tools/android/android-studio"
 
 # golang env
 export GOROOT=$HOME/tools/go/go-lang
