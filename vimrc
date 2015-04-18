@@ -24,6 +24,8 @@ Plugin  'ludovicchabant/vim-gutentags'
 Plugin  'henrik/vim-indexed-search'
 
 " language and framework
+Plugin  'othree/html5.vim'
+Plugin  'hail2u/vim-css3-syntax'
 Plugin  'fatih/vim-go'
 Plugin  'moll/vim-node'
 Plugin  'elixir-lang/vim-elixir'
@@ -200,13 +202,16 @@ autocmd BufReadPost *
   \ endif
 
 " spell check stuff
-autocmd BufRead,BufNewFile *.md,*.markdown setlocal spell
+autocmd BufRead,BufNewFile *.md,*.markdown,*.txt setlocal spell
 "autocmd FileType text setlocal spell
 set complete+=kspell
 map <F5> :setlocal spell! spelllang=en_us<CR>
 
 " zeal doc tool
 :nnoremap gz :!zeal --query "<cword>"&<CR><CR>
+
+" Let :w!! gain sudo privileges without closing and reopening vim
+cmap w!! w !sudo tee % >/dev/null
 
 " Quick cycling between windows
 map <C-h> <C-w>h
