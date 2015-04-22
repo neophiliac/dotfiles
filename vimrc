@@ -34,13 +34,10 @@ Plugin  'chase/vim-ansible-yaml'
 "Plugin  'vim-scripts/bash-support.vim'
 Plugin  'jelera/vim-javascript-syntax'
 Plugin  'mxw/vim-jsx'
-Plugin  'tpope/vim-surround'
 Plugin  'vim-scripts/paredit.vim'
 Plugin  'guns/vim-clojure-static'
 Plugin  'tomtom/tlib_vim'
 Plugin  'MarcWeber/vim-addon-mw-utils'
-Plugin  'garbas/vim-snipmate'
-Plugin  'honza/vim-snippets'
 Plugin  'tpope/vim-cucumber'
 Plugin  'tpope/vim-haml'
 Plugin  'slim-template/vim-slim'
@@ -50,6 +47,13 @@ Plugin  'tpope/vim-markdown'
 Plugin  'tpope/vim-rails'
 Plugin  'vim-ruby/vim-ruby'
 "Plugin  'jpalardy/vim-slime'
+"
+" multipliers (most/all file types)
+Plugin  'tpope/vim-surround'
+Plugin  'Shougo/neocomplete'
+Plugin  'Shougo/neosnippet'
+Plugin  'Shougo/neosnippet-snippets'
+Plugin  'honza/vim-snippets'
 call vundle#end()
 
 set showtabline=2
