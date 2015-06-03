@@ -41,6 +41,7 @@ Plugin  'MarcWeber/vim-addon-mw-utils'
 Plugin  'tpope/vim-cucumber'
 Plugin  'tpope/vim-haml'
 Plugin  'slim-template/vim-slim'
+Plugin  'heartsentwined/vim-emblem'
 Plugin  'mutewinter/nginx.vim'
 Plugin  'tpope/vim-markdown'
 "Plugin  'ngmy/vim-rubocop'
@@ -108,8 +109,9 @@ set complete=.,t
 set autoread
 
 set list   " show trailing whitespace
-"set listchars=tab:▸\ ,trail:▫
-set listchars=tab:▸\ ,trail:▫,eol:¬,nbsp:_,extends:❯,precedes:❮
+set listchars=tab:▸\ ,trail:▫
+autocmd FileType go setlocal listchars=tab:\|\ 
+"set listchars=tab:▸\ ,trail:▫,eol:¬,nbsp:_,extends:❯,precedes:❮
 
 " swapfiles are lame. we have git
 set noswapfile
@@ -195,6 +197,10 @@ function! OpenFactoryFile()
     execute ":sp spec/factories.rb"
   end
 endfunction
+
+" golang stuff (vim-go plugin)
+let g:go_fmt_command = "goimports"
+let g:go_highlight_functions = 1
 
 function! <SID>StripTrailingWhitespaces()
     " Preparation: save last search, and cursor position.

@@ -169,7 +169,9 @@ export ANDROID_HOME="$HOME/tools/android/android-studio"
 # golang env
 export GOROOT=$HOME/tools/go/go-lang
 export PATH=$PATH:$GOROOT/bin
-export GOPATH="/home/kls/Projects/gocode/"
+export GOPATH="/home/kls/Projects/gocode"
+export GOBIN=$GOPATH/bin
+export PATH=$PATH:$GOBIN
 
 ##*- MUST BE LAST LINE!!
 eval "$(direnv hook bash)"
