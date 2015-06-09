@@ -55,6 +55,8 @@ Plugin  'Shougo/neocomplete'
 Plugin  'Shougo/neosnippet'
 Plugin  'Shougo/neosnippet-snippets'
 Plugin  'honza/vim-snippets'
+Plugin  'terryma/vim-expand-region'
+
 call vundle#end()
 
 set showtabline=2
@@ -78,6 +80,10 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 if has('conceal')
   set conceallevel=2 concealcursor=niv
 endif
+
+" visual region select
+vmap v <Plug>(expand_region_expand)
+vmap <C-v> <Plug>(expand_region_shrink)
 
 filetype plugin indent on
 syntax on
@@ -183,6 +189,17 @@ nmap <ESC>t :OpenNERDTree<CR>
 " use ctrl-p fuzzy finder (plugin)
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_custom_ignore = '\v\~$|\.(o|swp|pyc|wav|mp3|ogg|blend)$|(^|[/\\])\.(hg|git|bzr)($|[/\\])|__init__\.py'
+let g:ctrlp_use_caching = 0
+if executable('ag')
+    set grepprg=ag\ --nogroup\ --nocolor
+
+    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+else
+  let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
+  let g:ctrlp_prompt_mappings = {
+    \ 'AcceptSelection("e")': ['<space>', '<cr>', '<2-LeftMouse>'],
+    \ }
+endif
 
 autocmd User Rails let  g:fuzzy_roots = [RailsRoot()]
 
