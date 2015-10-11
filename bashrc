@@ -162,7 +162,7 @@ export PATH="/usr/local/heroku/bin:$PATH"
 # AWS env
 export AWS_CONFIG_FILE=$HOME/.aws/config
 
-# Android tools (for Ruboto)
+# Android tools
 export PATH="$HOME/tools/android/android-studio/bin:$PATH"
 export ANDROID_HOME="$HOME/tools/android/android-studio"
 
@@ -172,6 +172,9 @@ export PATH=$PATH:$GOROOT/bin
 export GOPATH="/home/kls/Projects/gocode"
 export GOBIN=$GOPATH/bin
 export PATH=$PATH:$GOBIN
+
+# nodejs env
+export PATH=$PATH:$HOME/.local/share/npm/bin/
 
 ##*- MUST BE LAST LINE!!
 eval "$(direnv hook bash)"
