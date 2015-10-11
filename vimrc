@@ -13,6 +13,7 @@ Plugin  'airblade/vim-gitgutter'
 Plugin  'tsaleh/vim-align'
 Plugin  'tpope/vim-commentary'
 Plugin  'Raimondi/delimitMate'
+Plugin  'jpo/vim-railscasts-theme'
 
 " navigation and searching
 Plugin  'scrooloose/nerdtree'
@@ -51,7 +52,8 @@ Plugin  'vim-ruby/vim-ruby'
 "
 " multipliers (most/all file types)
 Plugin  'tpope/vim-surround'
-Plugin  'Shougo/neocomplete'
+"Plugin  'Shougo/neocomplete'
+Plugin 'Valloric/YouCompleteMe'
 Plugin  'Shougo/neosnippet'
 Plugin  'Shougo/neosnippet-snippets'
 Plugin  'honza/vim-snippets'
@@ -63,8 +65,10 @@ set showtabline=2
 
 "if $COLORTERM == 'gnome-terminal'
   set t_Co=256
+  set term=gnome-256color
 "endif
-:colorscheme desert
+colorscheme desert
+"colorscheme railscasts
 
 " snippets settings - https://github.com/Shougo/neosnippet.vim
 let g:neosnippet#enable_snipmate_compatibility = 1
