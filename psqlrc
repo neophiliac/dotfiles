@@ -1,0 +1,7 @@
+\timing
+\pset null ¤
+\set COMP_KEYWORD_CASE upper
+\x auto
+\set HISTFILE ~/.psql_history- :DBNAME
+\set HISTCONTROL ignoredups
+
