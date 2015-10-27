@@ -2,7 +2,7 @@
 #alias ll='ls -l'
 #alias la='ls -A'
 #alias l='ls -CF'
-ltm() { ls -lt "$@" | more }
+ltm() { ls -lt "$@" | more; }
 
 psg () { command ps aux | grep "$@" | grep -v grep ; }
 tf () { command tail -f "$@" ; }
@@ -10,6 +10,7 @@ sti () { command ssh root@$@ ; }
 sl () { command surf localhost:$1/$2 & }
 sp () { command surf `xclip -o` & }
 alias sqlite3='sqlite3 -column -header'
+alias grep="/bin/grep --color=auto"
 
 # rails aliases
 alias bi='bundle install | grep nstallin'

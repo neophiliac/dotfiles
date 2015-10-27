@@ -110,13 +110,8 @@ complete -F _gcomp g
 # Usage: g [TAB]
 # --- end cd bookmarks
 
-# set editor for text or X
-if [ -n $DISPLAY ]; then
-  export EDITOR='vim';
-else
-  export EDITOR='gvim';
-  export VISUAL='gvim';
-fi;
+# set editor
+export EDITOR='vim';
 
 export JDK_HOME="/usr/lib/jvm/java-7-openjdk-amd64/"
 
@@ -129,8 +124,6 @@ export NUMCPUS=`grep -c '^processor' /proc/cpuinfo`
 export MAKEOPTS="-j$((NUMCPUS*2))"
 export MAKEFLAGS="-j$((NUMCPUS*2))"
 alias pmake='time nice make -j$((NUMCPUS*2)) --load-average=$NUMCPUS'
-
-export GREP_OPTIONS='--color=auto'
 
 # Ibus env
 #export GTK_IM_MODULE=ibus
