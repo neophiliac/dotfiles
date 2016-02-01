@@ -3,3 +3,4 @@
 --exclude=.git
 --exclude=tmp
 --exclude=log
+--exclude=cache
