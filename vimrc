@@ -1,5 +1,11 @@
 "Use Vim settings, rather than Vi settings (much better!).
 "This must be first, because it changes other options as a side effect.
+
+" awesome trick by github.com/rson
+" if !isdirectory(expand("~/.vim/bundle/vundle/.git"))
+"   !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
+" endif
+
 set nocompatible
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -18,13 +24,14 @@ Plugin  'jpo/vim-railscasts-theme'
 " navigation and searching
 Plugin  'scrooloose/nerdtree'
 Plugin  'christoomey/vim-tmux-navigator'
-Plugin  'kien/ctrlp.vim'
+Plugin  'ctrlpvim/ctrlp.vim'
 Plugin  'tpope/vim-vividchalk'
 Plugin  'rking/ag.vim'
 Plugin  'ludovicchabant/vim-gutentags'
 Plugin  'henrik/vim-indexed-search'
 
 " language and framework
+Plugin  'scrooloose/syntastic'
 Plugin  'othree/html5.vim'
 Plugin  'hail2u/vim-css3-syntax'
 Plugin  'fatih/vim-go'
@@ -33,7 +40,8 @@ Plugin  'elixir-lang/vim-elixir'
 Plugin  'avakhov/vim-yaml'
 Plugin  'chase/vim-ansible-yaml'
 "Plugin  'vim-scripts/bash-support.vim'
-Plugin  'jelera/vim-javascript-syntax'
+"Plugin  'jelera/vim-javascript-syntax'
+Plugin  'pangloss/vim-javascript'
 Plugin  'mxw/vim-jsx'
 Plugin  'vim-scripts/paredit.vim'
 Plugin  'guns/vim-clojure-static'
@@ -58,6 +66,7 @@ Plugin  'Shougo/neosnippet'
 Plugin  'Shougo/neosnippet-snippets'
 Plugin  'honza/vim-snippets'
 Plugin  'terryma/vim-expand-region'
+Plugin  'vim-scripts/tComment'
 
 call vundle#end()
 
@@ -65,7 +74,7 @@ set showtabline=2
 
 "if $COLORTERM == 'gnome-terminal'
   set t_Co=256
-  set term=gnome-256color
+"  set term=gnome-256color
 "endif
 colorscheme desert
 "colorscheme railscasts
@@ -160,6 +169,9 @@ call matchadd('ColorColumn', '\%81v', 100)
 " gitgutter bg color matches line numbers
 highlight clear SignColumn
 
+" wrap git commits at column 72 and check spelling
+autocmd Filetype gitcommit setlocal spell textwidth=72
+
 " Leader commands
 map <Leader>ac :sp app/controllers/application_controller.rb<cr>
 map <Leader>bb :!bundle install<cr>
@@ -209,7 +221,7 @@ autocmd User Rails let  g:fuzzy_roots = [RailsRoot()]
 
 au BufRead,BufNewFile *.bldr set filetype=ruby
 au BufWritePost .vimrc so $MYVIMRC
-au BufNewFile,BufRead *.json setf javascript
+"au BufNewFile,BufRead *.json setf javascript
 
 function! OpenFactoryFile()
   if filereadable("test/factories.rb")
