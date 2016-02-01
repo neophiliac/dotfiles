@@ -28,8 +28,12 @@ alias gob='go build -ldflags "-X main.buildstamp `date -u '+%Y-%m-%d_%I:%M:%S%p'
 # git shell aliases
 alias homegit="GIT_DIR=~/Projects/dotfiles-kls/.git GIT_WORK_TREE=~ git"
 alias cdg='cd $(git rev-parse --show-cdup)'
+alias newest='find . -type f -printf "%C@ %p\n" | sort -rn | head -n'
 
-alias nv='nvim'
+alias gzip='pigz --rsyncable'
+
+# show non-printing chars, don't process them!
+alias cat='cat -v'
 
 alias diff='grc diff'
 alias make='grc make'
@@ -39,3 +43,31 @@ alias configure='grc ./configure'
 
 alias pbcopy='xclip -selection clipboard'
 alias pbpaste='xclip -selection clipboard -o'
+# Bash wrapper to change directory to the output of gocd
+gocd () {
+  if dir=$($GOPATH/bin/gocd $1); then
+    cd "$dir"
+  fi
+}
+
+# Optional tab completion wrapper for $GOPATH/src
+_gopath () {
+  local cur
+  COMPREPLY=()
+  cur=${COMP_WORDS[COMP_CWORD]}
+  k=0
+  for j in $( compgen -f "$GOPATH/src/$cur" ); do
+    if [ -d "$j" ]; then
+      COMPREPLY[k++]=${j#$GOPATH/src/}
+    fi
+  done
+}
+
+complete -o nospace -F _gopath gocd 
+
+# aliases from github.com/bkuhlmann/dotfiles
+alias bzc='tar --use-compress-program=pigz --create --preserve-permissions --bzip2 --verbose --file'
+alias bzx='tar --extract --bzip2 --verbose --file'
+alias copf='rubocop --auto-correct'
+alias myip='curl --silent checkip.dyndns.org | grep --extended-regexp --only-matching "[0-9.]+"'
+
