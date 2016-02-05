@@ -160,7 +160,7 @@ export PATH="$HOME/tools/android/android-studio/bin:$PATH"
 export ANDROID_HOME="$HOME/tools/android/android-studio"
 
 # golang env
-export GOROOT=$HOME/tools/go/go-lang:$GOROOT
+export GOROOT=$HOME/tools/go/go-lang
 export PATH=$PATH:$GOROOT/bin
 export GOPATH="/home/kls/Projects/gocode"
 export GOBIN=$GOPATH/bin
