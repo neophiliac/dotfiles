@@ -115,8 +115,6 @@ export EDITOR='vim';
 
 export JDK_HOME="/usr/lib/jvm/java-7-openjdk-amd64/"
 
-export CDPATH=~/Projects:"${CDPATH}"
-
 export CHOST="x86_64-pc-linux-gnu"
 export CFLAGS="-march=corei7-avx -O2 -pipe"
 export CXXFLAGS="${CFLAGS}"
@@ -165,6 +163,9 @@ export PATH=$PATH:$GOROOT/bin
 export GOPATH="/home/kls/Projects/gocode"
 export GOBIN=$GOPATH/bin
 export PATH=$PATH:$GOBIN
+
+# CS path
+export CDPATH=.:~:~/Projects:"${GOPATH}/src/github.com/neophiliac:${CDPATH}"
 
 # nodejs env
 export PATH=$PATH:$HOME/.local/share/npm/bin/
