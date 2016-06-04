@@ -5,10 +5,12 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
-# don't put duplicate lines in the history. See bash(1) for more options
-export HISTCONTROL=ignoredups
-# ... and ignore same sucessive entries.
-export HISTCONTROL=ignoreboth
+# history config from mrzool
+export HISTCONTROL="erasedups:ignoreboth"
+export HISTTIMEFORMAT='%F %T '
+export HISTIGNORE="&:[ ]*:bg:fg:history"
+shopt -s histappend
+shopt -s cmdhist
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -30,6 +32,12 @@ if [ -f /etc/bash_completion.d/git ]; then
     export GIT_PS1_SHOWUPSTREAM="auto"
     . /etc/bash_completion.d/git
 fi
+
+# create aliases for Git commands from ~/.gitconfig
+# perl -pe '$c=$1if/^\[(.*)\]/;$_=join("\t",($c,$1,$2))if/^\s*(\w*?)\s*=\s*([^=]*$)/;' < $HOME/.gitconfig | grep '^alias\b' | cut -f2- | while read git_alias git_command; do
+#   alias $git_alias="git $git_command"
+# done
+# unset git_alias git_command
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
@@ -82,7 +90,6 @@ function b0 {
 function lt() { ls -ltrsa "$@" | tail; }
 function psgrep() { ps axuf | grep -v grep | grep "$@" -i --color=auto; }
 function fname() { find . -iname "*$@*"; }
-#function gitup { if [ -d $1 ]; then (cd $1; git pull; cd -); fi }
 
 # cd bookmarks
 # enable custom tab completion
@@ -164,11 +171,18 @@ export GOPATH="/home/kls/Projects/gocode"
 export GOBIN=$GOPATH/bin
 export PATH=$PATH:$GOBIN
 
-# CS path
+# cd path and options
 export CDPATH=.:~:~/Projects:"${GOPATH}/src/github.com/neophiliac:${CDPATH}"
+shopt -s autocd
+shopt -s dirspell
+shopt -s cdspell
 
 # nodejs env
 export PATH=$PATH:$HOME/.local/share/npm/bin/
+
+# Postgres
+export PGUSER=kls
+export PGPASSWORD=arfarf
 
 ##*- MUST BE LAST LINE!!
 eval "$(direnv hook bash)"

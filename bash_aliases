@@ -43,6 +43,9 @@ alias configure='grc ./configure'
 
 alias pbcopy='xclip -selection clipboard'
 alias pbpaste='xclip -selection clipboard -o'
+
+alias refresh='source ~/.bashrc'
+
 # Bash wrapper to change directory to the output of gocd
 gocd () {
   if dir=$($GOPATH/bin/gocd $1); then
