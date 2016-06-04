@@ -61,7 +61,7 @@ Plugin  'vim-ruby/vim-ruby'
 " multipliers (most/all file types)
 Plugin  'tpope/vim-surround'
 "Plugin  'Shougo/neocomplete'
-Plugin 'Valloric/YouCompleteMe'
+Plugin  'ervandew/supertab'
 Plugin  'Shougo/neosnippet'
 Plugin  'Shougo/neosnippet-snippets'
 Plugin  'honza/vim-snippets'
@@ -112,7 +112,8 @@ set smarttab
 set shiftwidth=2
 set autoindent
 set expandtab
-set nu
+set number
+set relativenumber
 set history=50  " keep 50 lines of command line history
 set ruler  " show the cursor position all the time
 set showcmd  " display incomplete commands
