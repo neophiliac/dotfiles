@@ -8,21 +8,26 @@ email          = kls@merlot.com
 [commit]
 template = ~/.gitmessage
 [alias]
+  branches = branch -a
+  tags = tag
+  stashes = stash list
+  nevermind = !git reset --hard HEAD && git clean -d -f
+  unmerged = diff --name-only --diff-filter=U
+  remotes = remote -v
 st             = status
-sb             = status -sb
 ci             = commit
 br             = branch
 co             = checkout
 cp             = cherry-pick
 ld             = log -p
-lg             = log --graph --abbrev-commit --decorate --date                                              = relative --format                                                           = format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
-ls             = log --pretty                                                                               = format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
-ll             = log --pretty                                                                               = format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
-lnc            = log --pretty                                                                               = format:"%h\\ %s\\ [%cn]"
+lg             = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+ls             = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
+ll             = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+lnc            = log --pretty=format:"%h\\ %s\\ [%cn]"
 df             = diff --word-diff
 last           = diff HEAD^ # show last committed change
 uncommit       = reset --soft HEAD^   # go back before last commit, with files in uncommitted state
-hist           = log --pretty                                                                               = format:\"%h %ad | %s%d [%an]\" --graph --date                               = short
+hist           = log --pretty= format:\"%h %ad | %s%d [%an]\" --graph --date=short
 aa             = !git add -u && git add . && git status
 cob            = checkout -b
 up             = !git fetch origin && git rebase -p origin/master
@@ -51,4 +56,11 @@ autocorrect    = 1
 [diff]
 algorithm      = patience
 [init]
-templatedir = ~/.git_template
+	templateDir = /home/kls/.git-templates/git-secrets
+[secrets]
+	providers = git secrets --aws-provider
+	patterns = [A-Z0-9]{20}
+	patterns = (\"|')?(AWS|aws|Aws)?_?(SECRET|secret|Secret)?_?(ACCESS|access|Access)?_?(KEY|key|Key)(\"|')?\\s*(:|=>|=)\\s*(\"|')?[A-Za-z0-9/\\+=]{40}(\"|')?
+	patterns = (\"|')?(AWS|aws|Aws)?_?(ACCOUNT|account|Account)_?(ID|id|Id)?(\"|')?\\s*(:|=>|=)\\s*(\"|')?[0-9]{4}\\-?[0-9]{4}\\-?[0-9]{4}(\"|')?
+	allowed = AKIAIOSFODNN7EXAMPLE
+	allowed = wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
