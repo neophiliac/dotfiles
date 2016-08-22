@@ -16,7 +16,7 @@ Plugin 'gmarik/Vundle.vim'
 " display stuff
 Plugin  'bling/vim-airline'
 Plugin  'airblade/vim-gitgutter'
-Plugin  'tsaleh/vim-align'
+Plugin  'godlygeek/tabular'
 Plugin  'tpope/vim-commentary'
 Plugin  'Raimondi/delimitMate'
 Plugin  'jpo/vim-railscasts-theme'
@@ -31,10 +31,12 @@ Plugin  'ludovicchabant/vim-gutentags'
 Plugin  'henrik/vim-indexed-search'
 
 " language and framework
+Plugin 'posva/vim-vue'
 Plugin  'scrooloose/syntastic'
 Plugin  'othree/html5.vim'
 Plugin  'hail2u/vim-css3-syntax'
 Plugin  'fatih/vim-go'
+Plugin  'AndrewRadev/splitjoin.vim'
 Plugin  'moll/vim-node'
 Plugin  'elixir-lang/vim-elixir'
 Plugin  'avakhov/vim-yaml'
@@ -130,8 +132,33 @@ set autoread
 
 set list   " show trailing whitespace
 set listchars=tab:▸\ ,trail:▫
-autocmd FileType go setlocal listchars=tab:\|\ 
 "set listchars=tab:▸\ ,trail:▫,eol:¬,nbsp:_,extends:❯,precedes:❮
+
+" navigate quickfix list
+map <C-n> :cn<CR>
+map <C-m> :cp<CR>
+nnoremap <leader>a :cclose<CR>
+
+" golang settings
+" run :GoBuild or :GoTestCompile based on the go file
+function! s:build_go_files()
+  let l:file = expand('%')
+  if l:file =~# '^\f\+_test\.go$'
+    call go#cmd#Test(0, 1)
+  elseif l:file =~# '^\f\+\.go$'
+    call go#cmd#Build(0)
+  endif
+endfunction
+
+autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
+autocmd FileType go nmap <leader>r  <Plug>(go-run)
+autocmd FileType go setlocal listchars=tab:\|\ 
+
+let g:go_fmt_command = "goimports"
+let g:go_highlight_functions = 1
+let g:go_highlight_build_constraints = 1
+let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
+let g:go_metalinter_deadline = "8s"
 
 " swapfiles are lame. we have git
 set noswapfile
@@ -231,10 +258,6 @@ function! OpenFactoryFile()
     execute ":sp spec/factories.rb"
   end
 endfunction
-
-" golang stuff (vim-go plugin)
-let g:go_fmt_command = "goimports"
-let g:go_highlight_functions = 1
 
 function! <SID>StripTrailingWhitespaces()
     " Preparation: save last search, and cursor position.
