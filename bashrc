@@ -117,6 +117,9 @@ complete -F _gcomp g
 # Usage: g [TAB]
 # --- end cd bookmarks
 
+# AWS command completion
+complete -C '/usr/local/bin/aws_completer' aws
+
 # set editor
 export EDITOR='vim';
 
@@ -130,25 +133,13 @@ export MAKEOPTS="-j$((NUMCPUS*2))"
 export MAKEFLAGS="-j$((NUMCPUS*2))"
 alias pmake='time nice make -j$((NUMCPUS*2)) --load-average=$NUMCPUS'
 
-# Ibus env
-#export GTK_IM_MODULE=ibus
-#export XMODIFIERS=@im=ibus
-#export QT_IM_MODULE=ibus
-
-# GNOME keyring
-#export GNOME_DESKTOP_SESSION_ID=`pidof gnome-keyring-daemon`
-#export GNOME_DESKTOP_SESSION_ID=1
-
 source ~/.bash_prompt
 
 # Ruby2 tuning
 export RUBY_GC_MALLOC_LIMIT=1000000000
 export RUBY_HEAP_SLOTS_GROWTH_FACTOR=1.25
-#export RUBY_HEAP_MIN_SLOTS=800000
 export RUBY_GC_HEAP_INIT_SLOTS=800000 # Like RUBY_HEAP_MIN_SLOTS for Ruby 2.1+
-#export RUBY_FREE_MIN=600000
 export RUBY_GC_HEAP_FREE_SLOTS=600000 # Like RUBY_FREE_MIN for Ruby 2.1+
-#export LD_PRELOAD=/usr/lib/libtcmalloc_minimal.so.4
 export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so.1
 
 export PATH="$HOME/.rbenv/bin:$PATH"
@@ -184,5 +175,14 @@ export PATH=$PATH:$HOME/.local/share/npm/bin/
 export PGUSER=kls
 export PGPASSWORD=arfarf
 
+# ssh agent (keychain)
+eval `keychain --eval --agents ssh ~/.ssh/id_*`
+
 ##*- MUST BE LAST LINE!!
 eval "$(direnv hook bash)"
+
+# The next line updates PATH for the Google Cloud SDK.
+source '/home/kls/Projects/google-cloud-sdk/path.bash.inc'
+
+# The next line enables shell command completion for gcloud.
+source '/home/kls/Projects/google-cloud-sdk/completion.bash.inc'
