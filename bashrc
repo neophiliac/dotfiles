@@ -54,9 +54,6 @@ screen)
 esac
 
 # Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
@@ -66,8 +63,6 @@ fi
 if [ "$TERM" != "dumb" ]; then
     eval "`dircolors -b`"
     alias ls='ls --color=auto'
-    #alias dir='ls --color=auto --format=vertical'
-    #alias vdir='ls --color=auto --format=long'
 fi
 
 # enable programmable completion features (you don't need to enable
@@ -75,6 +70,14 @@ fi
 # sources /etc/bash.bashrc).
 if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
+fi
+
+# if a /usr/local completion directory exists, source all files
+if [ -d /usr/local/etc/bash_completion.d ]; then
+  for f in /usr/local/etc/bash_completion.d/* 
+  do
+    . $f
+  done
 fi
 
 # battery status
@@ -121,7 +124,7 @@ complete -F _gcomp g
 complete -C '/usr/local/bin/aws_completer' aws
 
 # set editor
-export EDITOR='vim';
+export EDITOR='vi';
 
 export JDK_HOME="/usr/lib/jvm/java-7-openjdk-amd64/"
 
@@ -141,9 +144,6 @@ export RUBY_HEAP_SLOTS_GROWTH_FACTOR=1.25
 export RUBY_GC_HEAP_INIT_SLOTS=800000 # Like RUBY_HEAP_MIN_SLOTS for Ruby 2.1+
 export RUBY_GC_HEAP_FREE_SLOTS=600000 # Like RUBY_FREE_MIN for Ruby 2.1+
 export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so.1
-
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init - --no-rehash)"
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
@@ -175,14 +175,20 @@ export PATH=$PATH:$HOME/.local/share/npm/bin/
 export PGUSER=kls
 export PGPASSWORD=arfarf
 
+# xtensa path
+## set in .envrc where needed!
+#export PATH="$PATH:/opt/esp8266/esp-open-sdk/xtensa-lx106-elf/bin"
+
 # ssh agent (keychain)
 eval `keychain --eval --agents ssh ~/.ssh/id_*`
+
+# rbenv comfig
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init - --no-rehash)"
 
 ##*- MUST BE LAST LINE!!
 eval "$(direnv hook bash)"
 
-# The next line updates PATH for the Google Cloud SDK.
-source '/home/kls/Projects/google-cloud-sdk/path.bash.inc'
-
 # The next line enables shell command completion for gcloud.
-source '/home/kls/Projects/google-cloud-sdk/completion.bash.inc'
+source '/usr/share/google-cloud-sdk/completion.bash.inc'
+
