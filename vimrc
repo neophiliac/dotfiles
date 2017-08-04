@@ -18,17 +18,18 @@ Plugin  'bling/vim-airline'
 Plugin  'airblade/vim-gitgutter'
 Plugin  'godlygeek/tabular'
 Plugin  'tpope/vim-commentary'
-Plugin  'Raimondi/delimitMate'
-Plugin  'jpo/vim-railscasts-theme'
+"Plugin  'Raimondi/delimitMate'
+"Plugin  'jpo/vim-railscasts-theme'
+Plugin  'tpope/vim-vividchalk'
 
 " navigation and searching
 Plugin  'scrooloose/nerdtree'
 Plugin  'christoomey/vim-tmux-navigator'
 Plugin  'ctrlpvim/ctrlp.vim'
-Plugin  'tpope/vim-vividchalk'
-Plugin  'rking/ag.vim'
+"Plugin  'rking/ag.vim'
 Plugin  'ludovicchabant/vim-gutentags'
-Plugin  'henrik/vim-indexed-search'
+"Plugin  'henrik/vim-indexed-search'
+Plugin 'easymotion/vim-easymotion'
 
 " language and framework
 Plugin 'posva/vim-vue'
@@ -36,28 +37,32 @@ Plugin  'scrooloose/syntastic'
 Plugin  'othree/html5.vim'
 Plugin  'hail2u/vim-css3-syntax'
 Plugin  'fatih/vim-go'
+Plugin  'roxma/SimpleAutoComplPop'
+"Plugin  'yosssi/vim-ace'
 Plugin  'AndrewRadev/splitjoin.vim'
-Plugin  'moll/vim-node'
-Plugin  'elixir-lang/vim-elixir'
+"Plugin  'moll/vim-node'
+"Plugin  'elixir-lang/vim-elixir'
 Plugin  'avakhov/vim-yaml'
 Plugin  'chase/vim-ansible-yaml'
 "Plugin  'vim-scripts/bash-support.vim'
 "Plugin  'jelera/vim-javascript-syntax'
 Plugin  'pangloss/vim-javascript'
-Plugin  'mxw/vim-jsx'
+"Plugin  'mxw/vim-jsx'
 Plugin  'vim-scripts/paredit.vim'
-Plugin  'guns/vim-clojure-static'
+"Plugin  'guns/vim-clojure-static'
 Plugin  'tomtom/tlib_vim'
 Plugin  'MarcWeber/vim-addon-mw-utils'
-Plugin  'tpope/vim-cucumber'
+"Plugin  'tpope/vim-cucumber'
 Plugin  'tpope/vim-haml'
 Plugin  'slim-template/vim-slim'
-Plugin  'heartsentwined/vim-emblem'
-Plugin  'mutewinter/nginx.vim'
+"Plugin  'heartsentwined/vim-emblem'
+"Plugin  'mutewinter/nginx.vim'
 Plugin  'tpope/vim-markdown'
 "Plugin  'ngmy/vim-rubocop'
 Plugin  'tpope/vim-rails'
 Plugin  'vim-ruby/vim-ruby'
+Plugin 'tpope/vim-rbenv'
+Plugin 'tpope/vim-bundler'
 "Plugin  'jpalardy/vim-slime'
 "
 " multipliers (most/all file types)
@@ -70,14 +75,19 @@ Plugin  'honza/vim-snippets'
 Plugin  'terryma/vim-expand-region'
 Plugin  'vim-scripts/tComment'
 
+" nvim only
+if has('nvim')
+  Plugin  'Shougo/deoplete.nvim'
+endif
+
 call vundle#end()
 
 set showtabline=2
 
-"if $COLORTERM == 'gnome-terminal'
+if $COLORTERM == 'gnome-terminal'
   set t_Co=256
 "  set term=gnome-256color
-"endif
+endif
 colorscheme desert
 "colorscheme railscasts
 
@@ -106,8 +116,17 @@ filetype plugin on
 
 " Improve vim's scrolling speed
 set ttyfast
-set ttyscroll=3
 set lazyredraw
+
+if has('nvim')
+  " no mouse
+  set mouse-=a
+  " Use deoplete.
+  "let g:deoplete#enable_at_startup = 1
+  call deoplete#enable()
+else
+  set ttyscroll=3
+endif
 
 set tabstop=2
 set smarttab
@@ -153,7 +172,11 @@ endfunction
 autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
 autocmd FileType go nmap <leader>r  <Plug>(go-run)
 autocmd FileType go setlocal listchars=tab:\|\ 
-
+autocmd FileType go call sacp#enableForThisBuffer({ "matches": [
+      \ { '=~': '\v[a-zA-Z]{4}$' , 'feedkeys': "\<C-x>\<C-n>"} ,
+      \ { '=~': '\.$'            , 'feedkeys': "\<C-x>\<C-o>", "ignoreCompletionMode":1} ,
+      \ ]
+\ })
 let g:go_fmt_command = "goimports"
 let g:go_highlight_functions = 1
 let g:go_highlight_build_constraints = 1
@@ -189,10 +212,6 @@ let g:airline_symbols.space = "\ua0"
 "au WinLeave * set nocursorline nocursorcolumn
 "au WinEnter * set cursorline cursorcolumn
 "set cursorline cursorcolumn
-
-" highlight just the 81st column of wide lines, for example, right here........> <
-highlight ColorColumn ctermbg=235
-call matchadd('ColorColumn', '\%81v', 100)
 
 " gitgutter bg color matches line numbers
 highlight clear SignColumn
@@ -271,7 +290,7 @@ function! <SID>StripTrailingWhitespaces()
     call cursor(l, c)
 endfunction
 " autocmd BufWritePre *.rb,*.css,*.go,*.tpl,*.php :call <SID>StripTrailingWhitespaces()
-autocmd BufWritePre *.rb,*.go :call <SID>StripTrailingWhitespaces()
+autocmd BufWritePre *.rb,*.go,*.css,*.php :call <SID>StripTrailingWhitespaces()
 
 " When editing a file, always jump to the last known cursor position.
 " Don't do it when the position is invalid or when inside an event handler
@@ -287,6 +306,10 @@ autocmd BufRead,BufNewFile *.md,*.markdown,*.txt setlocal spell
 set complete+=kspell
 map <F5> :setlocal spell! spelllang=en_us<CR>
 
+" Tab completion
+set wildmode=list:longest,list:full  
+set wildignore+=*.o,*.obj,.git,*.rbc,*.class,.svn,vendor/gems/*  
+
 " zeal doc tool
 :nnoremap gz :!zeal --query "<cword>"&<CR><CR>
 
@@ -298,3 +321,10 @@ map <C-h> <C-w>h
 map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
+
+" Move a line of text using ALT+[jk] or Command+[jk] on mac
+nmap <M-j> mz:m+<cr>`z
+nmap <M-k> mz:m-2<cr>`z
+vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
+vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
+
