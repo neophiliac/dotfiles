@@ -1,68 +1,85 @@
-[color]
-ui             = true
-[format]
-pretty         = %C(yellow)%h%Creset %s %C(red)(%cr)%Creset
 [user]
 name           = Kurt Sussman
 email          = kls@merlot.com
-[commit]
-template = ~/.gitmessage
 [alias]
-  branches = branch -a
-  tags = tag
-  stashes = stash list
-  nevermind = !git reset --hard HEAD && git clean -d -f
-  unmerged = diff --name-only --diff-filter=U
-  remotes = remote -v
-st             = status
-ci             = commit
-br             = branch
-co             = checkout
-cp             = cherry-pick
-ld             = log -p
-lg             = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
-ls             = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
-ll             = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
-lnc            = log --pretty=format:"%h\\ %s\\ [%cn]"
-df             = diff --word-diff
-last           = diff HEAD^ # show last committed change
-uncommit       = reset --soft HEAD^   # go back before last commit, with files in uncommitted state
-hist           = log --pretty= format:\"%h %ad | %s%d [%an]\" --graph --date=short
-aa             = !git add -u && git add . && git status
-cob            = checkout -b
-up             = !git fetch origin && git rebase -p origin/master
-ir             = !git rebase -i origin/master
-done           = !git fetch && git rebase origin/master && git checkout master && git merge @{-1} && rake &
-who            = shortlog -n -s --no-merges
-sub            = submodule update --init
-unstage        = reset HEAD
-uncommit       = reset --soft HEAD^
-fl             = log -u
-ctags          = !.git/hooks/ctags
+aa        = !git add -u && git add . && git status
+branches  = branch -a
+# https://wikileaks.org/ciav7p1/cms/page_1179773.html
+aliases   = !git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]/ = /' | sort
+br        = branch
+churn     = !git log --all --find-copies --find-renames --name-only --format='format:' "$@" | sort | grep -v '^$' | uniq -c | sort | awk 'BEGIN {print "count\tfile"} {print $1 "\t" $2}' | sort -g
+ci        = commit
+cob       = checkout -b
+co        = checkout
+cp        = cherry-pick
+ctags     = !.git/hooks/ctags
+df        = diff --word-diff
+done      = !git fetch && git rebase origin/master && git checkout master && git merge @{-1} && rake &
+fl        = log -u
+# Find text in any commit ever
+grep-all  = !"f() { git rev-list --all | xargs git grep \"$@\"; }; f"
+hist      = log --pretty                                                                               = format:\"%h %ad | %s%d [%an]\" --graph --date                               = short
+ir        = !git rebase -i origin/master
+last      = diff HEAD^ # show last committed change
+ld        = log -p
+lg        = log --graph --abbrev-commit --decorate --date                                              = relative --format                                                           = format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+ll        = log --pretty                                                                               = format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+lnc       = log --pretty                                                                               = format:"%h\\ %s\\ [%cn]"
+ls        = log --pretty                                                                               = format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
+nevermind = !git reset --hard HEAD && git clean -d -f
+prune     = fetch --prune
+remotes   = remote -v
+stashes   = stash list
+stash-all = stash save --include-untracked
+st        = status
+sub       = submodule update --init
+tags      = tag
+
+# topic branches
+topic-start = "!f(){ branch=$1; git checkout master; git fetch; git rebase; git checkout -b "$branch" master; };f"
+topic-pull = "!f(){ branch=$(git branch-name); git checkout master; git pull; git checkout "$branch"; git rebase master; };f"
+topic-push = "!f(){ branch=$(git branch-name); git push --set-upstream origin "$branch"; };f"
+topic-finish = "!f(){ branch=$(git branch-name); git checkout master; git branch --delete "$branch"; git push origin ":$branch"; };f"
+
+uncommit  = reset --soft HEAD^   # go back before last commit, with files in uncommitted state
+unmerged  = diff --name-only --diff-filter                                                             = U
+unstage   = reset HEAD
+up        = !git fetch origin && git rebase -p origin/master
+who       = shortlog -n -s --no-merges
 [branch]
 autosetupmerge = true
-[merge]
-summary        = true
-[gc]
-auto           = 1
+[color]
+ui             = true
+[commit]
+template       = ~/.gitmessage
 [core]
-editor         = "vim --nofork"
+#editor         = "vi --nofork"
+editor         = "vi"
 autocrlf       = input
 excludesfile   = /home/kls/.gitignore
-[push]
-default        = tracking
-[help]
-autocorrect    = 1
+[credential]
+helper = cache --timeout=3600
 [diff]
 algorithm      = patience
+[format]
+pretty         = %C(yellow)%h%Creset %s %C(red)(%cr)%Creset
+[gc]
+auto           = 1
+[help]
+autocorrect    = 1
 [init]
-	templateDir = /home/kls/.git-templates/git-secrets
+templateDir = /home/kls/.git-templates/git-secrets
+[merge]
+summary        = true
+[push]
+default        = simple
+followTags     = true
 [secrets]
-	providers = git secrets --aws-provider
-	patterns = [A-Z0-9]{20}
-	patterns = (\"|')?(AWS|aws|Aws)?_?(SECRET|secret|Secret)?_?(ACCESS|access|Access)?_?(KEY|key|Key)(\"|')?\\s*(:|=>|=)\\s*(\"|')?[A-Za-z0-9/\\+=]{40}(\"|')?
-	patterns = (\"|')?(AWS|aws|Aws)?_?(ACCOUNT|account|Account)_?(ID|id|Id)?(\"|')?\\s*(:|=>|=)\\s*(\"|')?[0-9]{4}\\-?[0-9]{4}\\-?[0-9]{4}(\"|')?
-	allowed = AKIAIOSFODNN7EXAMPLE
-	allowed = wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
-[credential]
-	helper = cache --timeout=3600
+providers = git secrets --aws-provider
+patterns = [A-Z0-9]{20}
+patterns = (\"|')?(AWS|aws|Aws)?_?(SECRET|secret|Secret)?_?(ACCESS|access|Access)?_?(KEY|key|Key)(\"|')?\\s*(:|=>|=)\\s*(\"|')?[A-Za-z0-9/\\+=]{40}(\"|')?
+patterns = (\"|')?(AWS|aws|Aws)?_?(ACCOUNT|account|Account)_?(ID|id|Id)?(\"|')?\\s*(:|=>|=)\\s*(\"|')?[0-9]{4}\\-?[0-9]{4}\\-?[0-9]{4}(\"|')?
+allowed = AKIAIOSFODNN7EXAMPLE
+allowed = wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+[status]
+showUntrackedFiles = all
