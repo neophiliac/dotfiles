@@ -46,6 +46,9 @@ alias pbpaste='xclip -selection clipboard -o'
 
 alias refresh='source ~/.bashrc'
 
+# will need sudo to listen on low port
+alias tftphere='in.tftpd ./ -s -c -L -a 0.0.0.0:69 -4 -vv'
+
 # Bash wrapper to change directory to the output of gocd
 gocd () {
   if dir=$($GOPATH/bin/gocd $1); then
@@ -74,3 +77,6 @@ alias bzx='tar --extract --bzip2 --verbose --file'
 alias copf='rubocop --auto-correct'
 alias myip='curl --silent checkip.dyndns.org | grep --extended-regexp --only-matching "[0-9.]+"'
 
+# kubernetes commands
+# https://mtpereira.com/local-development-k8s.html
+alias minikube-start='minikube start --insecure-registry localhost:5000 && eval $(minikube docker-env) && minikube dashboard' # && source <(minikube completion bash)'
