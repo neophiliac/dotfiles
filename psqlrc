@@ -2,6 +2,7 @@
 \pset null ¤
 \set COMP_KEYWORD_CASE upper
 \x auto
+\setenv PAGER '/usr/local/bin/pspg -s13 -X --no-mouse'
 \set HISTFILE ~/.psql_history- :DBNAME
 \set HISTCONTROL ignoredups
 
