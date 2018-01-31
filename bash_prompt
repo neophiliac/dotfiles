@@ -21,6 +21,7 @@ function __my_rvm_ruby_version {
 
 bash_prompt() {
   local NONE="\[\033[0m\]"    # unsets color to term's fg color
+  local TERMTITLE='\[\033]0;\u@\h  \W\007\]' # user@host basename
 
   # regular colors
   local K="\[\033[0;30m\]"    # black
@@ -55,7 +56,7 @@ bash_prompt() {
   local UC=$W                 # user's color
   [ $UID -eq "0" ] && UC=$R   # root's color
 
-  PS1="$M\$(__my_rvm_ruby_version)$Y\w$EMW\$(__git_branch)$EMY\$(__git_dirty)${NONE} $ "
+  PS1="$TERMTITLE$M\$Y\w$EMW\$(__git_branch)$EMY\$(__git_dirty)${NONE} $ "
 }
 
 bash_prompt
