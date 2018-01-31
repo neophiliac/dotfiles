@@ -6,6 +6,8 @@ ltm() { ls -lt "$@" | more; }
 
 psg () { command ps aux | grep "$@" | grep -v grep ; }
 tf () { command tail -f "$@" ; }
+tfc () { command tail -f "$@" | ccze ; }
+alias tfs='tail -f /var/log/syslog'
 sti () { command ssh root@$@ ; }
 sl () { command surf localhost:$1/$2 & }
 sp () { command surf `xclip -o` & }
@@ -80,3 +82,4 @@ alias myip='curl --silent checkip.dyndns.org | grep --extended-regexp --only-mat
 # kubernetes commands
 # https://mtpereira.com/local-development-k8s.html
 alias minikube-start='minikube start --insecure-registry localhost:5000 && eval $(minikube docker-env) && minikube dashboard' # && source <(minikube completion bash)'
+
