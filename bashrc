@@ -156,24 +156,31 @@ export PATH="$HOME/tools/android/android-studio/bin:$PATH"
 export ANDROID_HOME="$HOME/tools/android/android-studio"
 
 # golang env
-export GOROOT=$HOME/tools/go/go-lang
+export GOROOT=/usr/local/go
 export PATH=$PATH:$GOROOT/bin
 export GOPATH="/home/kls/Projects/gocode"
 export GOBIN=$GOPATH/bin
 export PATH=$PATH:$GOBIN
 
-# cd path and options
-export CDPATH=.:~:~/Projects:"${GOPATH}/src/github.com/neophiliac:${CDPATH}"
-shopt -s autocd
-shopt -s dirspell
-shopt -s cdspell
+# cd path and options, for interactive shell only
+if test "${PS1+set}"; then
+  export CDPATH=.:~:~/Projects:"${GOPATH}/src/github.com/neophiliac":"${GOPATH}/src/github.com/ProStarSoftware"
+  shopt -s autocd
+  shopt -s dirspell
+  shopt -s cdspell
+fi
 
 # nodejs env
 export PATH=$PATH:$HOME/.local/share/npm/bin/
 
+# python env
+export PATH=$PATH:$HOME/.local/bin
+
 # Postgres
 export PGUSER=kls
-export PGPASSWORD=arfarf
+#export PGPASSWORD=
+
+export BORG_PASSPHRASE='speakfriend'
 
 # xtensa path
 ## set in .envrc where needed!
@@ -182,6 +189,10 @@ export PGPASSWORD=arfarf
 # ssh agent (keychain)
 eval `keychain --eval --agents ssh ~/.ssh/id_*`
 
+# The next line enables shell command completion for gcloud.
+source '/usr/share/google-cloud-sdk/completion.bash.inc'
+source <(kubectl completion bash)
+
 # rbenv comfig
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init - --no-rehash)"
@@ -189,6 +200,4 @@ eval "$(rbenv init - --no-rehash)"
 ##*- MUST BE LAST LINE!!
 eval "$(direnv hook bash)"
 
-# The next line enables shell command completion for gcloud.
-source '/usr/share/google-cloud-sdk/completion.bash.inc'
-
+command -v vg >/dev/null 2>&1 && eval "$(vg eval --shell bash)"
