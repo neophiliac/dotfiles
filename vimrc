@@ -25,7 +25,7 @@ Plugin  'tpope/vim-vividchalk'
 " navigation and searching
 Plugin  'scrooloose/nerdtree'
 Plugin  'christoomey/vim-tmux-navigator'
-Plugin  'ctrlpvim/ctrlp.vim'
+"Plugin  'ctrlpvim/ctrlp.vim'
 "Plugin  'rking/ag.vim'
 Plugin  'ludovicchabant/vim-gutentags'
 "Plugin  'henrik/vim-indexed-search'
@@ -68,7 +68,7 @@ Plugin 'tpope/vim-bundler'
 " multipliers (most/all file types)
 Plugin  'tpope/vim-surround'
 "Plugin  'Shougo/neocomplete'
-Plugin  'ervandew/supertab'
+"Plugin  'ervandew/supertab'
 Plugin  'Shougo/neosnippet'
 Plugin  'Shougo/neosnippet-snippets'
 Plugin  'honza/vim-snippets'
@@ -77,17 +77,19 @@ Plugin  'vim-scripts/tComment'
 
 " nvim only
 if has('nvim')
-  Plugin  'Shougo/deoplete.nvim'
+"  Plugin  'Shougo/deoplete.nvim'
 endif
 
 call vundle#end()
 
 set showtabline=2
+set formatoptions+=j
 
 if $COLORTERM == 'gnome-terminal'
   set t_Co=256
 "  set term=gnome-256color
 endif
+set title
 colorscheme desert
 "colorscheme railscasts
 
@@ -123,7 +125,7 @@ if has('nvim')
   set mouse-=a
   " Use deoplete.
   "let g:deoplete#enable_at_startup = 1
-  call deoplete#enable()
+  "call deoplete#enable()
 else
   set ttyscroll=3
 endif
@@ -182,6 +184,9 @@ let g:go_highlight_functions = 1
 let g:go_highlight_build_constraints = 1
 let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
 let g:go_metalinter_deadline = "8s"
+
+" replace _ with error handling block
+"nmap <leader>e xierr<esc>oif err != nil {<enter>
 
 " swapfiles are lame. we have git
 set noswapfile
