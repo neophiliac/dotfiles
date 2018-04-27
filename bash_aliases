@@ -83,3 +83,8 @@ alias myip='curl --silent checkip.dyndns.org | grep --extended-regexp --only-mat
 # https://mtpereira.com/local-development-k8s.html
 alias minikube-start='minikube start --insecure-registry localhost:5000 && eval $(minikube docker-env) && minikube dashboard' # && source <(minikube completion bash)'
 
+# docker shortcuts
+function drips(){ 
+  docker ps -q | xargs -n 1 docker inspect --format '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}} {{ .Name }}' | sed 's/ \// /'; 
+}
+
