@@ -27,6 +27,7 @@ ll        = log --pretty                                                        
 lnc       = log --pretty                                                                               = format:"%h\\ %s\\ [%cn]"
 ls        = log --pretty                                                                               = format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
 nevermind = !git reset --hard HEAD && git clean -d -f
+plog      = log --graph --oneline --all --decorate --topo-order
 prune     = fetch --prune
 remotes   = remote -v
 stashes   = stash list
