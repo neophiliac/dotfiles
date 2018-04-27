@@ -11,7 +11,7 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-Plugin 'gmarik/Vundle.vim'
+Plugin 'VundleVim/Vundle.vim'
 
 " display stuff
 Plugin  'bling/vim-airline'
@@ -37,12 +37,13 @@ Plugin  'scrooloose/syntastic'
 Plugin  'othree/html5.vim'
 Plugin  'hail2u/vim-css3-syntax'
 Plugin  'fatih/vim-go'
+Plugin  'sebdah/vim-delve'
 Plugin  'roxma/SimpleAutoComplPop'
 "Plugin  'yosssi/vim-ace'
 Plugin  'AndrewRadev/splitjoin.vim'
 "Plugin  'moll/vim-node'
 "Plugin  'elixir-lang/vim-elixir'
-Plugin  'avakhov/vim-yaml'
+"Plugin  'avakhov/vim-yaml'
 Plugin  'chase/vim-ansible-yaml'
 "Plugin  'vim-scripts/bash-support.vim'
 "Plugin  'jelera/vim-javascript-syntax'
