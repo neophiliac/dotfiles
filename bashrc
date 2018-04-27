@@ -178,7 +178,7 @@ export PATH=$PATH:$HOME/.local/bin
 
 # Postgres
 export PGUSER=kls
-#export PGPASSWORD=
+export PGPASSWORD=arfarf
 
 export BORG_PASSPHRASE='speakfriend'
 
