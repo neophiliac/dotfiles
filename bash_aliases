@@ -6,7 +6,7 @@ ltm() { ls -lt "$@" | more; }
 
 psg () { command ps aux | grep "$@" | grep -v grep ; }
 tf () { command tail -f "$@" ; }
-tfc () { command tail -f "$@" | ccze ; }
+tfc () { command tail -f "$@" | ccze -A ; }
 alias tfs='tail -f /var/log/syslog'
 sti () { command ssh root@$@ ; }
 sl () { command surf localhost:$1/$2 & }

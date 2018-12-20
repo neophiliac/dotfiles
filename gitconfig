@@ -69,7 +69,9 @@ auto           = 1
 [help]
 autocorrect    = 1
 [init]
-templateDir = /home/kls/.git-templates/git-secrets
+templateDir = /home/kls/.git_templates/
+templatedir = /home/kls/.git_templates/git-secrets/
+templatedir = /home/kls/.git_templates/hooks/
 [merge]
 summary        = true
 [push]

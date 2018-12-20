@@ -143,7 +143,7 @@ export RUBY_GC_MALLOC_LIMIT=1000000000
 export RUBY_HEAP_SLOTS_GROWTH_FACTOR=1.25
 export RUBY_GC_HEAP_INIT_SLOTS=800000 # Like RUBY_HEAP_MIN_SLOTS for Ruby 2.1+
 export RUBY_GC_HEAP_FREE_SLOTS=600000 # Like RUBY_FREE_MIN for Ruby 2.1+
-export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so.1
+export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so.2
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
@@ -175,6 +175,9 @@ export PATH=$PATH:$HOME/.local/share/npm/bin/
 
 # python env
 export PATH=$PATH:$HOME/.local/bin
+
+# vagrant setup (avoid using VirtualBox)
+VAGRANT_DEFAULT_PROVIDER=libvirt
 
 # Postgres
 export PGUSER=kls

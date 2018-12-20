@@ -18,8 +18,6 @@ Plugin  'bling/vim-airline'
 Plugin  'airblade/vim-gitgutter'
 Plugin  'godlygeek/tabular'
 Plugin  'tpope/vim-commentary'
-"Plugin  'Raimondi/delimitMate'
-"Plugin  'jpo/vim-railscasts-theme'
 Plugin  'tpope/vim-vividchalk'
 
 " navigation and searching
@@ -27,12 +25,14 @@ Plugin  'scrooloose/nerdtree'
 Plugin  'christoomey/vim-tmux-navigator'
 "Plugin  'ctrlpvim/ctrlp.vim'
 "Plugin  'rking/ag.vim'
-Plugin  'ludovicchabant/vim-gutentags'
+"Plugin  'ludovicchabant/vim-gutentags'
 "Plugin  'henrik/vim-indexed-search'
 Plugin 'easymotion/vim-easymotion'
+Plugin  'tpope/vim-fugitive'
 
 " language and framework
-Plugin 'posva/vim-vue'
+Plugin 'w0rp/ale'
+"Plugin 'posva/vim-vue'
 Plugin  'scrooloose/syntastic'
 Plugin  'othree/html5.vim'
 Plugin  'hail2u/vim-css3-syntax'
@@ -77,9 +77,9 @@ Plugin  'terryma/vim-expand-region'
 Plugin  'vim-scripts/tComment'
 
 " nvim only
-if has('nvim')
+"if has('nvim')
 "  Plugin  'Shougo/deoplete.nvim'
-endif
+"endif
 
 call vundle#end()
 
@@ -129,6 +129,9 @@ if has('nvim')
   "call deoplete#enable()
 else
   set ttyscroll=3
+
+  " use chunked diff, not char diff
+  set diffopt+=algorithm:patience
 endif
 
 set tabstop=2
@@ -226,20 +229,20 @@ highlight clear SignColumn
 autocmd Filetype gitcommit setlocal spell textwidth=72
 
 " Leader commands
-map <Leader>ac :sp app/controllers/application_controller.rb<cr>
-map <Leader>bb :!bundle install<cr>
-map <Leader>f :call OpenFactoryFile()<CR>
-map <Leader>m :Rmodel 
+"map <Leader>ac :sp app/controllers/application_controller.rb<cr>
+"map <Leader>bb :!bundle install<cr>
+"map <Leader>f :call OpenFactoryFile()<CR>
+"map <Leader>m :Rmodel 
 map <Leader>p :set paste<CR>o<esc>"*]p:set nopaste<cr>
-map <Leader>ra :%s/
-map <Leader>sc :sp db/schema.rb<cr>
-map <Leader>sm :RSmodel 
-map <Leader>su :RSunittest 
-map <Leader>sv :RSview 
-map <Leader>vc :RVcontroller<cr>
-map <Leader>vf :RVfunctional<cr>
-map <Leader>vm :RVmodel<cr>
-map <Leader>vv :RVview<cr>
+"map <Leader>ra :%s/
+"map <Leader>sc :sp db/schema.rb<cr>
+"map <Leader>sm :RSmodel 
+"map <Leader>su :RSunittest 
+"map <Leader>sv :RSview 
+"map <Leader>vc :RVcontroller<cr>
+"map <Leader>vf :RVfunctional<cr>
+"map <Leader>vm :RVmodel<cr>
+"map <Leader>vv :RVview<cr>
 
 " reselect visual block after indent/outdent
 noremap < <gv
@@ -296,7 +299,7 @@ function! <SID>StripTrailingWhitespaces()
     call cursor(l, c)
 endfunction
 " autocmd BufWritePre *.rb,*.css,*.go,*.tpl,*.php :call <SID>StripTrailingWhitespaces()
-autocmd BufWritePre *.rb,*.go,*.css,*.php :call <SID>StripTrailingWhitespaces()
+autocmd BufWritePre *.rb,*.go,*.css,*.php,*.c,*.h,*.ino,*.cpp :call <SID>StripTrailingWhitespaces()
 
 " When editing a file, always jump to the last known cursor position.
 " Don't do it when the position is invalid or when inside an event handler
