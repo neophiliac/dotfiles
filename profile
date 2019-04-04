@@ -21,8 +21,13 @@ if [ -d "$HOME/bin" ] ; then
 fi
 
 # set PATH so it includes golang tools
-if [ -d "/usr/local/go" ] ; then
-    export PATH=$PATH:/usr/local/go/bin
+# if [ -d "/usr/local/go" ] ; then
+#     export PATH=$PATH:/usr/local/go/bin
+# fi
+
+# set PATH so it includes golang tools
+if [ -d "$HOME/.npm-global/bin" ] ; then
+  export PATH=$PATH:$HOME/.npm-global/bin
 fi
 
 #export RUBY_HEAP_MIN_SLOTS=1000000
