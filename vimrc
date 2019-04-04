@@ -14,11 +14,12 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
 " display stuff
-Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'godlygeek/tabular'
 Plugin 'tpope/vim-commentary'
-Plugin 'tpope/vim-vividchalk'
+"Plugin 'tpope/vim-vividchalk'
+"Plugin 'junegunn/vim-easy-align'
 
 " navigation and searching
 Plugin 'scrooloose/nerdtree'
@@ -27,8 +28,8 @@ Plugin 'christoomey/vim-tmux-navigator'
 "Plugin 'rking/ag.vim'
 "Plugin 'ludovicchabant/vim-gutentags'
 "Plugin 'henrik/vim-indexed-search'
-Plugin 'easymotion/vim-easymotion'
-Plugin 'tpope/vim-fugitive'
+"Plugin 'easymotion/vim-easymotion'
+"Plugin 'tpope/vim-fugitive'
 Plugin 'Shougo/vimshell'
 
 " language and framework
@@ -38,7 +39,7 @@ Plugin 'scrooloose/syntastic'
 Plugin 'othree/html5.vim'
 Plugin 'hail2u/vim-css3-syntax'
 Plugin 'fatih/vim-go'
-Plugin 'sebdah/vim-delve'
+"Plugin 'sebdah/vim-delve'
 Plugin 'roxma/SimpleAutoComplPop'
 "Plugin 'yosssi/vim-ace'
 Plugin 'AndrewRadev/splitjoin.vim'
@@ -55,16 +56,16 @@ Plugin 'vim-scripts/paredit.vim'
 Plugin 'tomtom/tlib_vim'
 Plugin 'MarcWeber/vim-addon-mw-utils'
 "Plugin 'tpope/vim-cucumber'
-Plugin 'tpope/vim-haml'
-Plugin 'slim-template/vim-slim'
+"Plugin 'tpope/vim-haml'
+"Plugin 'slim-template/vim-slim'
 "Plugin 'heartsentwined/vim-emblem'
 "Plugin 'mutewinter/nginx.vim'
 Plugin 'tpope/vim-markdown'
 "Plugin 'ngmy/vim-rubocop'
 Plugin 'tpope/vim-rails'
 Plugin 'vim-ruby/vim-ruby'
-Plugin 'tpope/vim-rbenv'
-Plugin 'tpope/vim-bundler'
+"Plugin 'tpope/vim-rbenv'
+"Plugin 'tpope/vim-bundler'
 "Plugin 'jpalardy/vim-slime'
 "
 " multipliers (most/all file types)
@@ -76,6 +77,7 @@ Plugin 'Shougo/neosnippet-snippets'
 Plugin 'honza/vim-snippets'
 Plugin 'terryma/vim-expand-region'
 Plugin 'vim-scripts/tComment'
+"Plugin 'junegunn/fzf'
 
 " nvim only
 "if has('nvim')
@@ -86,6 +88,17 @@ call vundle#end()
 
 set showtabline=2
 set formatoptions+=j
+
+" folding config
+set foldmethod=syntax
+autocmd BufWinLeave *.* mkview
+autocmd BufWinEnter *.* silent loadview
+
+" vim-easy-align mappings
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+"xmap ga <Plug>(EasyAlign)
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+"nmap ga <Plug>(EasyAlign)
 
 if $COLORTERM == 'gnome-terminal'
   set t_Co=256
