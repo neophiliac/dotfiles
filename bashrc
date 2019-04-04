@@ -129,7 +129,8 @@ export EDITOR='vi';
 export JDK_HOME="/usr/lib/jvm/java-7-openjdk-amd64/"
 
 export CHOST="x86_64-pc-linux-gnu"
-export CFLAGS="-march=corei7-avx -O2 -pipe"
+#export CFLAGS="-march=corei7-avx -O2 -pipe"
+export CFLAGS="-march=corei7-avx -O2 -pipe -D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS -fstack-protector-strong -fstack-clash-protection -fPIE -pie -Wl,-z,noexecstack -Wl,-z,relro -Wl,-z,now"
 export CXXFLAGS="${CFLAGS}"
 export NUMCPUS=`grep -c '^processor' /proc/cpuinfo`
 export MAKEOPTS="-j$((NUMCPUS*2))"
@@ -152,8 +153,8 @@ export PATH="/usr/local/heroku/bin:$PATH"
 export AWS_CONFIG_FILE=$HOME/.aws/config
 
 # Android tools
-export PATH="$HOME/tools/android/android-studio/bin:$PATH"
-export ANDROID_HOME="$HOME/tools/android/android-studio"
+#export PATH="$HOME/tools/android/android-studio/bin:$PATH"
+#export ANDROID_HOME="$HOME/tools/android/android-studio"
 
 # golang env
 export GOROOT=/usr/local/go
@@ -169,9 +170,10 @@ if test "${PS1+set}"; then
   shopt -s dirspell
   shopt -s cdspell
 fi
-
-# nodejs env
-export PATH=$PATH:$HOME/.local/share/npm/bin/
+# another cdpath-ish thing
+source ~/bin/wd.sh
+wd --add $GOPATH/src/github.com
+wd --add ~/Projects
 
 # python env
 export PATH=$PATH:$HOME/.local/bin
@@ -195,6 +197,10 @@ eval `keychain --eval --agents ssh ~/.ssh/id_*`
 # The next line enables shell command completion for gcloud.
 source '/usr/share/google-cloud-sdk/completion.bash.inc'
 source <(kubectl completion bash)
+
+# PlatfomIO completion
+eval "$(_PLATFORMIO_COMPLETE=source platformio)"
+eval "$(_PIO_COMPLETE=source pio)"
 
 # rbenv comfig
 export PATH="$HOME/.rbenv/bin:$PATH"
