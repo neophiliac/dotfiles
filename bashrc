@@ -40,7 +40,11 @@ fi
 # unset git_alias git_command
 
 # set a fancy prompt (non-color, unless we know we "want" color)
+# and other term-specific config
 case "$TERM" in
+xterm-kitty)
+    source <(kitty + complete setup bash)
+    ;;
 xterm-color)
     PS1='[\u@\h \W$(__git_ps1 " (%s)")]\$ '
     ;;
@@ -54,7 +58,6 @@ screen)
 esac
 
 # Alias definitions.
-
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
@@ -165,15 +168,15 @@ export PATH=$PATH:$GOBIN
 
 # cd path and options, for interactive shell only
 if test "${PS1+set}"; then
-  export CDPATH=.:~:~/Projects:"${GOPATH}/src/github.com/neophiliac":"${GOPATH}/src/github.com/ProStarSoftware"
+  export CDPATH=.:~:~/Projects:"${GOPATH}/src/github.com/neophiliac":"${GOPATH}/src/github.com/bright-lion"
   shopt -s autocd
   shopt -s dirspell
   shopt -s cdspell
 fi
 # another cdpath-ish thing
-source ~/bin/wd.sh
-wd --add $GOPATH/src/github.com
-wd --add ~/Projects
+# source ~/bin/wd.sh
+# wd --add $GOPATH/src/github.com
+# wd --add ~/Projects
 
 # python env
 export PATH=$PATH:$HOME/.local/bin
@@ -190,6 +193,7 @@ export BORG_PASSPHRASE='speakfriend'
 # xtensa path
 ## set in .envrc where needed!
 #export PATH="$PATH:/opt/esp8266/esp-open-sdk/xtensa-lx106-elf/bin"
+export IDF_PATH=$HOME/Projects/esp/ESP8266_RTOS_SDK
 
 # ssh agent (keychain)
 eval `keychain --eval --agents ssh ~/.ssh/id_*`
@@ -199,6 +203,7 @@ source '/usr/share/google-cloud-sdk/completion.bash.inc'
 source <(kubectl completion bash)
 
 # PlatfomIO completion
+export PATH=$PATH:~/.platformio/penv/bin
 eval "$(_PLATFORMIO_COMPLETE=source platformio)"
 eval "$(_PIO_COMPLETE=source pio)"
 
@@ -206,7 +211,11 @@ eval "$(_PIO_COMPLETE=source pio)"
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init - --no-rehash)"
 
+# jump - https://github.com/gsamokovarov/jump
+# 'smart' cd replacement
+eval "$(jump shell)"
+
 ##*- MUST BE LAST LINE!!
 eval "$(direnv hook bash)"
 
-command -v vg >/dev/null 2>&1 && eval "$(vg eval --shell bash)"
+#command -v vg >/dev/null 2>&1 && eval "$(vg eval --shell bash)"
