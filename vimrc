@@ -6,88 +6,137 @@
 "   !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
 " endif
 
+set encoding=utf-8
+
 set nocompatible
 filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
 
-Plugin 'VundleVim/Vundle.vim'
+if filereadable(expand("~/.vim/vimrc.bundles"))
+  source ~/.vim/vimrc.bundles
+" https://raw.githubusercontent.com/thoughtbot/dotfiles/master/vimrc.bundles
+
+if &compatible
+  set nocompatible
+end
+
+" Remove declared plugins
+function! s:UnPlug(plug_name)
+  if has_key(g:plugs, a:plug_name)
+    call remove(g:plugs, a:plug_name)
+  endif
+endfunction
+command!  -nargs=1 UnPlug call s:UnPlug(<args>)
+
+let g:has_async = v:version >= 800 || has('nvim')
+
+call plug#begin('~/.vim/bundle')
+
+" Define bundles via Github repos
+Plug 'christoomey/vim-run-interactive'
+
+if g:has_async
 
 " display stuff
-Plugin 'vim-airline/vim-airline'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'godlygeek/tabular'
-Plugin 'tpope/vim-commentary'
-"Plugin 'tpope/vim-vividchalk'
-"Plugin 'junegunn/vim-easy-align'
+Plug 'vim-airline/vim-airline'
+Plug 'airblade/vim-gitgutter'
+Plug 'godlygeek/tabular'
+Plug 'tpope/vim-commentary'
+"Plug 'tpope/vim-vividchalk'
+"Plug 'junegunn/vim-easy-align'
 
 " navigation and searching
-Plugin 'scrooloose/nerdtree'
-Plugin 'christoomey/vim-tmux-navigator'
-"Plugin 'ctrlpvim/ctrlp.vim'
-"Plugin 'rking/ag.vim'
-"Plugin 'ludovicchabant/vim-gutentags'
-"Plugin 'henrik/vim-indexed-search'
-"Plugin 'easymotion/vim-easymotion'
-"Plugin 'tpope/vim-fugitive'
-Plugin 'Shougo/vimshell'
+Plug 'scrooloose/nerdtree'
+Plug 'christoomey/vim-tmux-navigator'
+"Plug 'ctrlpvim/ctrlp.vim'
+"Plug 'rking/ag.vim'
+"Plug 'ludovicchabant/vim-gutentags'
+"Plug 'henrik/vim-indexed-search'
+"Plug 'easymotion/vim-easymotion'
+"Plug 'tpope/vim-fugitive'
+Plug 'Shougo/vimshell'
 
 " language and framework
-Plugin 'w0rp/ale'
-"Plugin 'posva/vim-vue'
-Plugin 'scrooloose/syntastic'
-Plugin 'othree/html5.vim'
-Plugin 'hail2u/vim-css3-syntax'
-Plugin 'fatih/vim-go'
-"Plugin 'sebdah/vim-delve'
-Plugin 'roxma/SimpleAutoComplPop'
-"Plugin 'yosssi/vim-ace'
-Plugin 'AndrewRadev/splitjoin.vim'
-"Plugin 'moll/vim-node'
-"Plugin 'elixir-lang/vim-elixir'
-"Plugin 'avakhov/vim-yaml'
-Plugin 'chase/vim-ansible-yaml'
-"Plugin 'vim-scripts/bash-support.vim'
-"Plugin 'jelera/vim-javascript-syntax'
-Plugin 'pangloss/vim-javascript'
-"Plugin 'mxw/vim-jsx'
-Plugin 'vim-scripts/paredit.vim'
-"Plugin 'guns/vim-clojure-static'
-Plugin 'tomtom/tlib_vim'
-Plugin 'MarcWeber/vim-addon-mw-utils'
-"Plugin 'tpope/vim-cucumber'
-"Plugin 'tpope/vim-haml'
-"Plugin 'slim-template/vim-slim'
-"Plugin 'heartsentwined/vim-emblem'
-"Plugin 'mutewinter/nginx.vim'
-Plugin 'tpope/vim-markdown'
-"Plugin 'ngmy/vim-rubocop'
-Plugin 'tpope/vim-rails'
-Plugin 'vim-ruby/vim-ruby'
-"Plugin 'tpope/vim-rbenv'
-"Plugin 'tpope/vim-bundler'
-"Plugin 'jpalardy/vim-slime'
+Plug 'w0rp/ale'
+"Plug 'posva/vim-vue'
+Plug 'scrooloose/syntastic'
+Plug 'othree/html5.vim'
+Plug 'hail2u/vim-css3-syntax'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+"Plug 'sebdah/vim-delve'
+Plug 'roxma/SimpleAutoComplPop'
+"Plug 'yosssi/vim-ace'
+Plug 'AndrewRadev/splitjoin.vim'
+"Plug 'moll/vim-node'
+"Plug 'elixir-lang/vim-elixir'
+"Plug 'avakhov/vim-yaml'
+Plug 'chase/vim-ansible-yaml'
+"Plug 'vim-scripts/bash-support.vim'
+"Plug 'jelera/vim-javascript-syntax'
+Plug 'pangloss/vim-javascript'
+"Plug 'mxw/vim-jsx'
+Plug 'vim-scripts/paredit.vim'
+"Plug 'guns/vim-clojure-static'
+Plug 'tomtom/tlib_vim'
+Plug 'MarcWeber/vim-addon-mw-utils'
+"Plug 'tpope/vim-cucumber'
+"Plug 'tpope/vim-haml'
+"Plug 'slim-template/vim-slim'
+"Plug 'heartsentwined/vim-emblem'
+"Plug 'mutewinter/nginx.vim'
+Plug 'tpope/vim-markdown'
+"Plug 'ngmy/vim-rubocop'
+Plug 'tpope/vim-rails'
+Plug 'vim-ruby/vim-ruby'
+"Plug 'tpope/vim-rbenv'
+"Plug 'tpope/vim-bundler'
+"Plug 'jpalardy/vim-slime'
+Plug 'stamblerre/gocode', {'rtp': 'nvim/'}
 "
 " multipliers (most/all file types)
-Plugin 'tpope/vim-surround'
-"Plugin 'Shougo/neocomplete'
-"Plugin 'ervandew/supertab'
-Plugin 'Shougo/neosnippet'
-Plugin 'Shougo/neosnippet-snippets'
-Plugin 'honza/vim-snippets'
-Plugin 'terryma/vim-expand-region'
-Plugin 'vim-scripts/tComment'
-"Plugin 'junegunn/fzf'
+Plug 'tpope/vim-surround'
+"Plug 'Shougo/neocomplete'
+"Plug 'ervandew/supertab'
+"Plug 'Shougo/neosnippet'
+"Plug 'Shougo/neosnippet-snippets'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'terryma/vim-expand-region'
+Plug 'vim-scripts/tComment'
+"Plug 'junegunn/fzf'
 
 " nvim only
 "if has('nvim')
-"  Plugin 'Shougo/deoplete.nvim'
+"  Plug 'Shougo/deoplete.nvim'
 "endif
 
-call vundle#end()
+if filereadable(expand("~/.vimrc.bundles.local"))
+  source ~/.vimrc.bundles.local
+endif
+
+call plug#end()
+
+endif " g:has_async
+endif
+
+" GUI options (test)
+if has("gui_running")
+    set guioptions-=T
+    set guioptions-=r
+    set guioptions-=R
+    set guioptions-=m
+    set guioptions-=l
+    set guioptions-=L
+    set guitablabel=%t
+endif
+
+" UltiSnips config
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 set showtabline=2
 set formatoptions+=j
+set nomodeline
 
 " folding config
 set foldmethod=syntax
@@ -189,6 +238,10 @@ function! s:build_go_files()
   endif
 endfunction
 
+" use go library server (experimental)
+let g:go_def_mode='gopls'
+let g:go_info_mode='gopls'
+
 autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
 autocmd FileType go nmap <leader>r  <Plug>(go-run)
 autocmd FileType go setlocal listchars=tab:\|\ 
@@ -268,6 +321,7 @@ nnoremap <leader><leader> :b#<cr>
 function OpenNERDTree()
   execute ":NERDTree"
 endfunction
+
 command -nargs=0 OpenNERDTree :call OpenNERDTree()
 
 nmap <ESC>t :OpenNERDTree<CR>
