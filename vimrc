@@ -40,13 +40,12 @@ if g:has_async
 Plug 'vim-airline/vim-airline'
 Plug 'airblade/vim-gitgutter'
 Plug 'godlygeek/tabular'
-Plug 'tpope/vim-commentary'
-"Plug 'tpope/vim-vividchalk'
-"Plug 'junegunn/vim-easy-align'
+"Plug 'tpope/vim-commentary'
 
 " navigation and searching
-Plug 'scrooloose/nerdtree'
+Plug 'preservim/nerdtree'
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 "Plug 'ctrlpvim/ctrlp.vim'
 "Plug 'rking/ag.vim'
 "Plug 'ludovicchabant/vim-gutentags'
@@ -58,39 +57,27 @@ Plug 'Shougo/vimshell'
 " language and framework
 Plug 'w0rp/ale'
 "Plug 'posva/vim-vue'
-Plug 'scrooloose/syntastic'
+"Plug 'vim-syntastic/syntastic'
 Plug 'othree/html5.vim'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 "Plug 'sebdah/vim-delve'
-Plug 'roxma/SimpleAutoComplPop'
-"Plug 'yosssi/vim-ace'
-Plug 'AndrewRadev/splitjoin.vim'
-"Plug 'moll/vim-node'
-"Plug 'elixir-lang/vim-elixir'
 "Plug 'avakhov/vim-yaml'
 Plug 'chase/vim-ansible-yaml'
 "Plug 'vim-scripts/bash-support.vim'
 "Plug 'jelera/vim-javascript-syntax'
 Plug 'pangloss/vim-javascript'
-"Plug 'mxw/vim-jsx'
 Plug 'vim-scripts/paredit.vim'
 "Plug 'guns/vim-clojure-static'
 Plug 'tomtom/tlib_vim'
 Plug 'MarcWeber/vim-addon-mw-utils'
 "Plug 'tpope/vim-cucumber'
-"Plug 'tpope/vim-haml'
-"Plug 'slim-template/vim-slim'
-"Plug 'heartsentwined/vim-emblem'
 "Plug 'mutewinter/nginx.vim'
 Plug 'tpope/vim-markdown'
-"Plug 'ngmy/vim-rubocop'
-Plug 'tpope/vim-rails'
-Plug 'vim-ruby/vim-ruby'
-"Plug 'tpope/vim-rbenv'
-"Plug 'tpope/vim-bundler'
-"Plug 'jpalardy/vim-slime'
-Plug 'stamblerre/gocode', {'rtp': 'nvim/'}
+""Plug 'ngmy/vim-rubocop'
+"Plug 'tpope/vim-rails'
+"Plug 'vim-ruby/vim-ruby'
+"Plug 'stamblerre/gocode', {'rtp': 'nvim/'}
 "
 " multipliers (most/all file types)
 Plug 'tpope/vim-surround'
@@ -141,13 +128,7 @@ set nomodeline
 " folding config
 set foldmethod=syntax
 autocmd BufWinLeave *.* mkview
-autocmd BufWinEnter *.* silent loadview
-
-" vim-easy-align mappings
-" Start interactive EasyAlign in visual mode (e.g. vipga)
-"xmap ga <Plug>(EasyAlign)
-" Start interactive EasyAlign for a motion/text object (e.g. gaip)
-"nmap ga <Plug>(EasyAlign)
+"autocmd BufWinEnter *.* silent loadview
 
 if $COLORTERM == 'gnome-terminal'
   set t_Co=256
@@ -155,7 +136,6 @@ if $COLORTERM == 'gnome-terminal'
 endif
 set title
 colorscheme desert
-"colorscheme railscasts
 
 " snippets settings - https://github.com/Shougo/neosnippet.vim
 let g:neosnippet#enable_snipmate_compatibility = 1
@@ -245,11 +225,11 @@ let g:go_info_mode='gopls'
 autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
 autocmd FileType go nmap <leader>r  <Plug>(go-run)
 autocmd FileType go setlocal listchars=tab:\|\ 
-autocmd FileType go call sacp#enableForThisBuffer({ "matches": [
-      \ { '=~': '\v[a-zA-Z]{4}$' , 'feedkeys': "\<C-x>\<C-n>"} ,
-      \ { '=~': '\.$'            , 'feedkeys': "\<C-x>\<C-o>", "ignoreCompletionMode":1} ,
-      \ ]
-\ })
+" autocmd FileType go call sacp#enableForThisBuffer({ "matches": [
+"       \ { '=~': '\v[a-zA-Z]{4}$' , 'feedkeys': "\<C-x>\<C-n>"} ,
+"       \ { '=~': '\.$'            , 'feedkeys': "\<C-x>\<C-o>", "ignoreCompletionMode":1} ,
+"       \ ]
+" \ })
 let g:go_fmt_command = "goimports"
 let g:go_highlight_functions = 1
 let g:go_highlight_build_constraints = 1
@@ -296,20 +276,9 @@ highlight clear SignColumn
 autocmd Filetype gitcommit setlocal spell textwidth=72
 
 " Leader commands
-"map <Leader>ac :sp app/controllers/application_controller.rb<cr>
-"map <Leader>bb :!bundle install<cr>
-"map <Leader>f :call OpenFactoryFile()<CR>
-"map <Leader>m :Rmodel 
 map <Leader>p :set paste<CR>o<esc>"*]p:set nopaste<cr>
-"map <Leader>ra :%s/
-"map <Leader>sc :sp db/schema.rb<cr>
-"map <Leader>sm :RSmodel 
-"map <Leader>su :RSunittest 
-"map <Leader>sv :RSview 
-"map <Leader>vc :RVcontroller<cr>
-"map <Leader>vf :RVfunctional<cr>
-"map <Leader>vm :RVmodel<cr>
-"map <Leader>vv :RVview<cr>
+nnoremap <silent> <Leader>v :NERDTreeFind<CR>
+map <Leader>ra :%s/
 
 " reselect visual block after indent/outdent
 noremap < <gv
@@ -318,13 +287,21 @@ noremap > >gv
 " two leaders to previous buffer
 nnoremap <leader><leader> :b#<cr>
 
-function OpenNERDTree()
-  execute ":NERDTree"
-endfunction
+" function OpenNERDTree()
+"   execute ":NERDTree"
+" endfunction
+"
+" command -nargs=0 OpenNERDTree :call OpenNERDTree()
+"
+" nmap <ESC>t :OpenNERDTree<CR>
 
-command -nargs=0 OpenNERDTree :call OpenNERDTree()
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
-nmap <ESC>t :OpenNERDTree<CR>
+"autocmd StdinReadPre * let s:std_in=1
+"autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
+
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " use ctrl-p fuzzy finder (plugin)
 let g:ctrlp_map = '<c-p>'
@@ -346,14 +323,6 @@ autocmd User Rails let  g:fuzzy_roots = [RailsRoot()]
 au BufRead,BufNewFile *.bldr set filetype=ruby
 au BufWritePost .vimrc so $MYVIMRC
 "au BufNewFile,BufRead *.json setf javascript
-
-function! OpenFactoryFile()
-  if filereadable("test/factories.rb")
-    execute ":sp test/factories.rb"
-  else
-    execute ":sp spec/factories.rb"
-  end
-endfunction
 
 function! <SID>StripTrailingWhitespaces()
     " Preparation: save last search, and cursor position.
