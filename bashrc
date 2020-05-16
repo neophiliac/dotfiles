@@ -126,18 +126,21 @@ complete -F _gcomp g
 # AWS command completion
 complete -C '/usr/local/bin/aws_completer' aws
 
-# set editor
-export EDITOR='vi';
+# set editor and related aliases
+export EDITOR='nvim';
+alias vimdiff='nvim -d'
+alias vim="nvim"
+alias vi="nvim"
 
 export JDK_HOME="/usr/lib/jvm/java-7-openjdk-amd64/"
 
 export CHOST="x86_64-pc-linux-gnu"
 #export CFLAGS="-march=corei7-avx -O2 -pipe"
-export CFLAGS="-march=corei7-avx -O2 -pipe -D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS -fstack-protector-strong -fstack-clash-protection -fPIE -pie -Wl,-z,noexecstack -Wl,-z,relro -Wl,-z,now"
+export CFLAGS="-march=native -O2 -pipe -D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS -fstack-protector-strong -fstack-clash-protection -fPIE -pie -Wl,-z,noexecstack -Wl,-z,relro -Wl,-z,now"
 export CXXFLAGS="${CFLAGS}"
 export NUMCPUS=`grep -c '^processor' /proc/cpuinfo`
-export MAKEOPTS="-j$((NUMCPUS*2))"
-export MAKEFLAGS="-j$((NUMCPUS*2))"
+export MAKEOPTS="-j$((NUMCPUS))"
+export MAKEFLAGS="$(MAKEOPTS)"
 alias pmake='time nice make -j$((NUMCPUS*2)) --load-average=$NUMCPUS'
 
 source ~/.bash_prompt
@@ -207,13 +210,17 @@ export PATH=$PATH:~/.platformio/penv/bin
 eval "$(_PLATFORMIO_COMPLETE=source platformio)"
 eval "$(_PIO_COMPLETE=source pio)"
 
+# Vagrant completion
+if [ -f /opt/vagrant/embedded/gems/2.2.7/gems/vagrant-2.2.7/contrib/bash/completion.sh ]; then
+  . /opt/vagrant/embedded/gems/2.2.7/gems/vagrant-2.2.7/contrib/bash/completion.sh
+fi
 # rbenv comfig
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init - --no-rehash)"
 
 # jump - https://github.com/gsamokovarov/jump
 # 'smart' cd replacement
-eval "$(jump shell)"
+#eval "$(jump shell)"
 
 ##*- MUST BE LAST LINE!!
 eval "$(direnv hook bash)"
