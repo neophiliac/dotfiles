@@ -52,7 +52,7 @@ autosetupmerge = true
 [color]
 	ui = true
 [commit]
-template       = ~/.gitmessage
+#template       = ~/.gitmessage
 [core]
 #editor         = "vi --nofork"
 editor         = "vi"
