@@ -1,14 +1,6 @@
-"Use Vim settings, rather than Vi settings (much better!).
 "This must be first, because it changes other options as a side effect.
-
-" awesome trick by github.com/rson
-" if !isdirectory(expand("~/.vim/bundle/vundle/.git"))
-"   !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
-" endif
-
 set encoding=utf-8
 
-set nocompatible
 filetype off
 
 if filereadable(expand("~/.vim/vimrc.bundles"))
@@ -55,7 +47,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'Shougo/vimshell'
 
 " language and framework
-Plug 'w0rp/ale'
+Plug 'dense-analysis/ale'
 "Plug 'posva/vim-vue'
 "Plug 'vim-syntastic/syntastic'
 Plug 'othree/html5.vim'
@@ -80,21 +72,16 @@ Plug 'tpope/vim-markdown'
 "Plug 'stamblerre/gocode', {'rtp': 'nvim/'}
 "
 " multipliers (most/all file types)
+Plug 'Shougo/deoplete.nvim', {'do':':UpdateRemotePlugins'}
+Plug 'visualfc/gocode'
+"Plug 'deoplete-plugins/deoplete-go', { 'do': 'make'}
+Plug 'Shougo/neosnippet'
+Plug 'Shougo/neosnippet-snippets'  " Default snippets for many languages
 Plug 'tpope/vim-surround'
-"Plug 'Shougo/neocomplete'
 "Plug 'ervandew/supertab'
-"Plug 'Shougo/neosnippet'
-"Plug 'Shougo/neosnippet-snippets'
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
 Plug 'terryma/vim-expand-region'
 Plug 'vim-scripts/tComment'
 "Plug 'junegunn/fzf'
-
-" nvim only
-"if has('nvim')
-"  Plug 'Shougo/deoplete.nvim'
-"endif
 
 if filereadable(expand("~/.vimrc.bundles.local"))
   source ~/.vimrc.bundles.local
@@ -103,7 +90,7 @@ endif
 call plug#end()
 
 endif " g:has_async
-endif
+endif " if filereadable(expand("~/.vim/vimrc.bundles"))
 
 " GUI options (test)
 if has("gui_running")
@@ -116,18 +103,13 @@ if has("gui_running")
     set guitablabel=%t
 endif
 
-" UltiSnips config
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-
 set showtabline=2
 set formatoptions+=j
 set nomodeline
 
 " folding config
-set foldmethod=syntax
-autocmd BufWinLeave *.* mkview
+"set foldmethod=syntax
+"autocmd BufWinLeave *.* mkview
 "autocmd BufWinEnter *.* silent loadview
 
 if $COLORTERM == 'gnome-terminal'
@@ -168,7 +150,7 @@ if has('nvim')
   " no mouse
   set mouse-=a
   " Use deoplete.
-  "let g:deoplete#enable_at_startup = 1
+  let g:deoplete#enable_at_startup = 1
   "call deoplete#enable()
 else
   set ttyscroll=3
@@ -222,6 +204,7 @@ endfunction
 let g:go_def_mode='gopls'
 let g:go_info_mode='gopls'
 
+au FileType go nmap <F12> <Plug>(go-def)
 autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
 autocmd FileType go nmap <leader>r  <Plug>(go-run)
 autocmd FileType go setlocal listchars=tab:\|\ 
@@ -231,23 +214,39 @@ autocmd FileType go setlocal listchars=tab:\|\
 "       \ ]
 " \ })
 let g:go_fmt_command = "goimports"
-let g:go_highlight_functions = 1
-let g:go_highlight_build_constraints = 1
 let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
-let g:go_metalinter_deadline = "8s"
+let g:go_metalinter_deadline = "12s"
+let g:go_addtags_transform = "snakecase"
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_types = 1
+let g:go_auto_sameids = 1
+let g:go_auto_type_info = 1
 
-" replace _ with error handling block
-"nmap <leader>e xierr<esc>oif err != nil {<enter>
+" go snippet config
+let g:go_snippet_engine = "neosnippet"
+
+" Error and warning signs.
+let g:ale_sign_error = '⤫'
+let g:ale_sign_warning = '⚠'
+
+" Enable integration with airline.
+let g:airline#extensions#ale#enabled = 1
 
 " swapfiles are lame. we have git
 set noswapfile
 set nobackup
 set nowb
 
-" ================ Persistent Undo ==================
-" Keep undo history across sessions, by storing in file.
-" Only works all the time.
-silent !mkdir ~/.vim/backups > /dev/null 2>&1
+" " ================ Persistent Undo ==================
+" " Keep undo history across sessions, by storing in file.
+" " Only works all the time.
+" silent !mkdir ~/.vim/backups > /dev/null 2>&1
 set undodir=~/.vim/backups
 set undofile
 
